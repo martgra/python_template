@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "ms-python.black-formatter",
+        "ms-python.pylint",
+        "ms-python.flake8",
+        "ms-python.isort",
+        "njpwerner.autodocstring",
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        "Gruntfuggly.todo-tree",
+        "esbenp.prettier-vscode"
+    ]
+}

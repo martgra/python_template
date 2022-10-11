@@ -1,0 +1,42 @@
+{
+    "python.testing.pytestEnabled": true,
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.rulers": [
+            100
+        ],
+        "files.trimTrailingWhitespace": true,
+    },
+    "pylint.importStrategy": "useBundled",
+    "pylint.logLevel": "warn",
+    "black-formatter.importStrategy": "useBundled",
+    "black-formatter.args": ["--line-length", "100"],
+    "flake8.importStrategy": "useBundled",
+    "flake8.args": ["--rcfile=${workspaceFolder}/setup.cfg"],
+    "flake8.logLevel": "warn",
+    "isort.args": ["--profile", "black"],
+    "python.linting.pydocstyleEnabled": true,
+    "python.formatting.provider": "none",
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "[yaml]":{
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2,
+        "editor.autoIndent": "keep",
+        "gitlens.codeLens.scopes": [
+            "document"
+        ],
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        }
+    }
+}

@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "python-package"
+version = "0.1.0"
+description = ""
+authors = ["Martin Gran <martgra@gmail.com>"]
+readme = "README.md"
+packages = [{include = "python_package"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.15.4"
+flake8 = "^5.0.4"
+isort = "^5.10.1"
+black = "^22.10.0"
+pydocstyle = "^6.1.1"
+pre-commit = "^2.20.0"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.1.3"
+pytest-cov = "^4.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
