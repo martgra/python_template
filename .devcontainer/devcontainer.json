@@ -1,0 +1,29 @@
+{
+	"name": "Python 3",
+	"dockerComposeFile": [
+		"docker-compose.yaml"
+	],
+	"service": "app",
+	"workspaceFolder": "/workspace",
+	"extensions": [
+        "ms-python.python",
+        "ms-python.black-formatter",
+        "ms-python.pylint",
+        "ms-python.flake8",
+        "ms-python.isort",
+        "njpwerner.autodocstring",
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        "Gruntfuggly.todo-tree",
+        "esbenp.prettier-vscode"
+	],
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [
+		8888
+	],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"remoteUser": "vscode",
+	"remoteEnv": {
+		"PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
+	}
+}
