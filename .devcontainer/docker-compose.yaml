@@ -9,15 +9,15 @@ services:
         VARIANT: 3.9-bullseye
     volumes:
       - ..:/workspace:cached # Shared workspace between host and devcontainer
-      - extensions:/home/vscode/.vscode-server/extensions # Storing extensions
-      - python_template/com:/home/vscode/commandhistory # Persistant command line history
-      - python_template/cache:/home/vscode/.cache # Caching poetry/pip wheels
+      - python_template_extensions:/home/vscode/.vscode-server/extensions # Storing extensions
+      - python_template_commandhistory:/home/vscode/commandhistory # Persistant command line history
+      - python_template_cache:/home/vscode/.cache # Caching poetry/pip wheels
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
 # Volumes that are not shared between Host and Devcontainer must be listed here.
 volumes:
-  python_template/ext:
-  python_template/com:
-  python_template/cache:
+  python_template_extensions:
+  python_template_commandhistory:
+  python_template_cache:

@@ -12,8 +12,8 @@ RUN mkdir -p /home/$USERNAME/.vscode-server/extensions \
     && chown -R $USERNAME \
     /home/$USERNAME/.vscode-server
 
-RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/home/$USERNAME/commandhistory/.zsh_history" \
+RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/home/$USERNAME/commandhistory/.bash_history" \
     && mkdir /home/$USERNAME/commandhistory \
-    && touch /home/$USERNAME/commandhistory/.zsh_history \
+    && touch /home/$USERNAME/commandhistory/.bash_history \
     && chown -R $USERNAME /home/$USERNAME/commandhistory \
-    && echo $SNIPPET >> "/home/$USERNAME/.zshrc"
+    && echo "$SNIPPET" >> "/home/$USERNAME/.bashrc"

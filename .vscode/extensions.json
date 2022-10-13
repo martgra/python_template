@@ -9,6 +9,7 @@
         "eamodio.gitlens",
         "mhutchie.git-graph",
         "Gruntfuggly.todo-tree",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "ms-vscode-remote.remote-containers"
     ]
 }
