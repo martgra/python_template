@@ -4,7 +4,7 @@
 
 This sets up a simple python repository with a few handy tools to make Python development (a little) smoother.
 
-## Getting stared 🚀 
+## Getting stared 🚀
 
 ### Prerequisites 🧱
 
@@ -27,10 +27,11 @@ The structure is fairly simple.
 4. The  content of ```.devcontainer/``` is autodetected by VSCode and can spin up containerized environment
 
 ```bash
-├── README.md 
-├── .vscode (1)
+├── README.md
+├── .vscode
+|   └── settings.json (1)  
 ├── .devcontainer (4)
-├── python_package 
+├── python_package
 ├── tests
 ├── pyproject.toml (2)
 ├── poetry.lock (2)
@@ -39,9 +40,9 @@ The structure is fairly simple.
 └── setup.cfg (1)
 ```
 
-## Dependencies and builing 🕸️
+## Dependencies and building 🕸️
 
-Instead of installing packages with pip ```pip```, keeping track of them with ```requirements.txt``` and build with ```setup.py``` this project utilize ```poetry``` bundled with 
+Instead of installing packages with pip ```pip```, keeping track of them with ```requirements.txt``` and build with ```setup.py``` this project utilize ```poetry``` bundled with
 ```pyproject.toml```. Poetry is both a build and dependency tool which in many ways compare with ``` npm ```.
 
 ### Install the project
@@ -62,12 +63,12 @@ The power of poetry is resolving dependency conflicts and locking these down. Th
 
 When adding or removing dependencies from the project a ```poetry.lock``` file is generated/altered. This file **should** be checked into the repository.
 
-The most useful commands are:
+Some useful commands are:
 
 ```bash
 poetry add <PACKAGE NAME> # Add a new dependency
 poetry remove <PACKAGE NAME> # Remove dependency
-poetry update # Update all dependencies 
+poetry update # Update all dependencies
 ```
 
 ### Building
@@ -99,6 +100,7 @@ For an enhanced coding experience:
 * [Pydocstyle](http://www.pydocstyle.org/en/stable/) make sure we write docstrings
 * [Autodocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring) Helps us create docstring templates (and have type hint support)
 
+The settings for the workspace are
 ## Testing 👷
 
 ## Devcontainer 🛸

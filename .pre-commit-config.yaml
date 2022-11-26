@@ -5,9 +5,18 @@ repos:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
       - id: check-json
-        exclude: ".vscode"
+        exclude: |
+          (?x)^(
+              \.vscode/.*|
+              \.devcontainer/devcontainer.json|
+          )$
       - id: pretty-format-json
-        exclude: ".vscode"
+        args: ["--autofix", "--no-ensure-ascii", "--no-sort-keys"]
+        exclude: |
+          (?x)^(
+              \.vscode/.*|
+              \.devcontainer/devcontainer.json|
+          )$
       - id: check-toml
       - id: check-yaml
       - id: end-of-file-fixer
@@ -26,7 +35,7 @@ repos:
     rev: "22.10.0"
     hooks:
       - id: black
-        args: ["--line-length", "100"]
+        args: ["--line-length", "100", "--config", "pyproject.toml"]
 
   - repo: https://github.com/pycqa/isort
     rev: 5.10.1
@@ -38,6 +47,7 @@ repos:
     rev: "6.1.1"
     hooks:
       - id: pydocstyle
+        args: ["--config", "setup.cfg"]
 
   - repo: local
     hooks:
