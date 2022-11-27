@@ -17,7 +17,7 @@ To get the most out of this repository you should need to install
 
 _Docker and docker compose is only necessary if one plans to utilize VSCode devcontainers_
 
-### Project structure 🧭
+## Project structure 🧭
 
 The structure is fairly simple.
 
@@ -87,9 +87,11 @@ pip install .
 
 ## Linting 🔎
 
+### Autoformatting in VSCode
+
 ### Linting in VSCode
 
-VSCode support the python language with really good intellisense support through the Python extension(s). Lately there have also been created extensions for the most popular linters. These can also be used by installing them in the environment (we will in fact do both).
+VSCode support the python language with really good intellisense support through the Python extension(s). Lately there have also been created extensions for the most popular linters. These can also be used by installing them in the Python environment (we will in fact do both).
 
 For an enhanced coding experience:
 
@@ -100,7 +102,32 @@ For an enhanced coding experience:
 * [Pydocstyle](http://www.pydocstyle.org/en/stable/) make sure we write docstrings
 * [Autodocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring) Helps us create docstring templates (and have type hint support)
 
-The settings for the workspace are
+
+The configuration of the linters are set in ```setup.cfg``` and ```pyproject.toml```. Ideally we would have _one_ config file but ```flake8``` and ```black``` are mutually exclusive and do not support one common config file (yet). The linters are also managed by ```.vscode/settings.json```.
+
+>For VSCode these linters are actual extensions with bundled executables and _should_ be faster then envoking linters installed with the python interpeter. To use the linters installed with the interpeter set  
+```importStrategy``` to ```fromEnvironment```
+
+### Linting with pre-commit
+
+Linting (and other code quality measures) are enforced on us by [pre-commit](https://pre-commit.com/#intro), a tool for creating [githooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks). In this setup these hooks will be run either before ```commit``` or ```push```. A list of available pre-commit hooks can be found [here :-)](https://pre-commit.com/hooks.html)
+
+>Look at pre-commit as your personal CI-pipline helping you to remember agreed coding styles and preventing annoying mistakes and subsequent fixes ever reaching your source tree. This "pipeline" is declared in ```pre-commit-config.yaml```.
+
+To add the ```git-hooks``` declared in ```.pre-commit-config.yaml``` run the following command:
+
+```bash
+pre-commit install
+```
+
+The hooks are now installed and most of them will be run every time you try to ```commit``` to you local branch. A few are ```on push``` only.
+
+If you need to check in some code and ```pre-commit``` prevents you can run the following to override the hooks. Although tempting this is not recommended.
+
+```bash
+pre-commit commit -m "commit message" --no-verify
+```
+
 ## Testing 👷
 
 ## Devcontainer 🛸
