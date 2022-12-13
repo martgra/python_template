@@ -10,21 +10,22 @@ This sets up a simple python repository with a few handy tools to make Python de
 
 To get the most out of this repository you should need to install
 
-* [VScode editor](https://code.visualstudio.com/Download)
+* [VSCode editor](https://code.visualstudio.com/Download)
 * [Python 3.7+](https://www.python.org/)
 * [Poetry for python](https://python-poetry.org/)
-* [Docker and docker-compose](https://www.docker.com/)
+* [Docker and docker-compose (Optional)](https://www.docker.com/)
+* [Pyenv (Optional)](https://github.com/pyenv/pyenv)
 
-_Docker and docker compose is only necessary if one plans to utilize VSCode devcontainers_
+>_Docker_ and _docker-compose_ is only necessary if one plans to utilize VSCode _devcontainers_
 
 ## Project structure 🧭
 
-The structure is fairly simple.
+The structure is fairly simple. Here we focus on the files directly related to setting up the development environment.
 
 1. Editor settings are in ```.vscode/settings.json``` referencing ```setup.cfg``` as the ground truth.
 2. Dependencies are defined ```pyproject.toml``` which replaces ```requirements.txt``` AND the ```setup.py```
 3. Githooks are installed with ```.pre-commit-config.yaml``` to keep garbage out of the git tree.
-4. The  content of ```.devcontainer/``` is autodetected by VSCode and can spin up containerized environment
+4. The  content of ```.devcontainer/``` is auto detected by VSCode and can spin up containerized environment
 
 ```bash
 ├── README.md
@@ -42,8 +43,9 @@ The structure is fairly simple.
 
 ## Dependencies and building 🕸️
 
-Instead of installing packages with pip ```pip```, keeping track of them with ```requirements.txt``` and build with ```setup.py``` this project utilize ```poetry``` bundled with
-```pyproject.toml```. Poetry is both a build and dependency tool which in many ways compare with ``` npm ```.
+Instead of installing packages with pip ```pip```, keeping track of them with ```requirements.txt``` and build with ```setup.py``` this project utilize ```poetry``` bundled with ```pyproject.toml```. Poetry is both a build and dependency tool which in many ways compare with ``` npm ```.
+
+>If you haven't already - here is the [guide to install poetry](https://python-poetry.org/docs/#installation)
 
 ### Install the project
 
@@ -55,21 +57,14 @@ poetry install
 
 This will create a virtual environment, install all dependencies and dev-tools to this environment and add the source folder to the ```PYTHONPATH```.
 
-_[VSCode is compatible with poetry and will detect the created environnement](https://devblogs.microsoft.com/python/python-in-visual-studio-code-april-2021-release/#support-for-poetry-environments)_
-
 ### Locking down dependencies
 
-The power of poetry is resolving dependency conflicts and locking these down. This way a working version of the project can be installed across environments.
+The power of ```poetry``` is resolving dependency conflicts and locking these down. This way an identical working version of the project can be installed across environments.
 
-When adding or removing dependencies from the project a ```poetry.lock``` file is generated/altered. This file **should** be checked into the repository.
+When adding or removing dependencies from the project a ```poetry.lock``` file is generated/altered. This file **should** be checked into the repository.  
 
-Some useful commands are:
+>The ```pyproject.toml``` file can be edited directly or altered with the ```poetry``` CLI. [The CLI documentation can be found here](https://python-poetry.org/docs/cli/)
 
-```bash
-poetry add <PACKAGE NAME> # Add a new dependency
-poetry remove <PACKAGE NAME> # Remove dependency
-poetry update # Update all dependencies
-```
 
 ### Building
 
@@ -83,6 +78,16 @@ The ```pyproject.toml``` file is also compatible with pip and one can easily ins
 
 ```bash
 pip install .
+```
+
+### Dependency groups
+
+Poetry lets you specify groups of dependencies. This allows us to keep development dependencies separate from the dependencies necessary to run the application.  In this  ```pyproject.toml``` there are three groups - regular dependencies, dev dependencies and test dependencies.
+
+To install the project without one dependency group run
+
+```bash
+
 ```
 
 ## Linting 🔎
