@@ -1,5 +1,5 @@
 {
-    "python.testing.pytestEnabled": true,
+    //Editor settings
     "[python]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "ms-python.black-formatter",
@@ -11,21 +11,6 @@
         ],
         "files.trimTrailingWhitespace": true,
     },
-    "pylint.importStrategy": "useBundled",
-    "pylint.logLevel": "warn",
-    "pylint.args": ["--rcfile", "${workspaceFolder}/setup.cfg"],
-    "black-formatter.importStrategy": "useBundled",
-    "black-formatter.args": ["--config", "${workspaceFolder}/pyproject.toml"],
-    "flake8.importStrategy": "useBundled",
-    "flake8.args": ["--config","setup.cfg"],
-    "flake8.logLevel": "warn",
-    "isort.args": ["--settings-path", "${workspaceFolder}/setup.cfg"],
-    "python.linting.pydocstyleEnabled": true,
-    "python.linting.pydocstyleArgs": ["--config", "${workspaceFolder}/setup.cfg"],
-    "python.formatting.provider": "none",
-    "python.testing.pytestArgs": [
-        "tests"
-    ],
     "[yaml]":{
         "editor.insertSpaces": true,
         "editor.formatOnSave": true,
@@ -40,5 +25,23 @@
             "comments": false,
             "strings": true
         }
-    }
+    },
+    //Extension(s) settings
+    "python.testing.pytestEnabled": true,
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+    "python.linting.pydocstyleEnabled": true,
+    "python.linting.pydocstyleArgs": ["--config", "${workspaceFolder}/setup.cfg"],
+    "python.formatting.provider": "none",
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "pylint.importStrategy": "useBundled",
+    "pylint.logLevel": "warn",
+    "pylint.args": ["--rcfile", "${workspaceFolder}/setup.cfg"],
+    "black-formatter.importStrategy": "useBundled",
+    "black-formatter.args": ["--config", "${workspaceFolder}/pyproject.toml"],
+    "flake8.importStrategy": "useBundled",
+    "flake8.args": ["--config","setup.cfg"],
+    "flake8.logLevel": "warn",
+    "isort.args": ["--settings-path", "${workspaceFolder}/setup.cfg"],
 }
