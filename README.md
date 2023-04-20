@@ -176,3 +176,31 @@ pytest --cov-report html --cov=python_package tests
 
 
 ## Devcontainer 🛸
+
+Devcontainers are one of the most powerful features of VSCode. Instead of going round "helping" everyone with environment related issues we can package everything into a docker-container and spin it up!
+Did an intentional or unintentional change happen to you environment? No worries - check in intentional changes and distribute faster than I can say "git commit" or rebuild the entire environment with a click of a button!
+
+
+The devcontainer files sit in ```.devcontainer``` folder and consist of
+
+```bash
+├── Dockerfile(1)
+├── devcontainer.json(2)
+├── docker-compose.yaml(3)
+└── postCreateCommand.sh(4)
+```
+1. The Dockerfile that defines the environment. Build your own or there is [a variaty to choose from here](https://hub.docker.com/_/microsoft-vscode-devcontainers)
+2. ```devcontainer.json```- The file that configures the environment!
+3. ```docker-compose.yaml```- I have chosen to extend ```.devcontainer.json```with a docker-compose file. This allows to easily extend the environment with supporting services such as a database or a S3 mock.
+4. ```postCreateCommand.sh``` is a script that is run after the environment is built the first time! Good place to add user specific actions like installing pre-commit hooks or python dependencies.
+
+
+
+[Follow this excellent guide to get going!](https://code.visualstudio.com/docs/devcontainers/containers)
+
+There is not much more to add other than:
+
+1. Open the repository root!
+2. Windows users - you **must** use this in context of WSL2. Its both faster, simpler and less error-prone! ([and strongly recommended!](https://code.visualstudio.com/docs/devcontainers/containers#_open-a-wsl-2-folder-in-a-container-on-windows))
+3. Press ```ctrl/command+shift+p``` and type ```"open folder in container"```
+4. Sit back and relax while the environment is spun up 🚀🚀🚀!
