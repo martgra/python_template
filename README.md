@@ -11,7 +11,7 @@ This sets up a simple python repository with a few handy tools to make Python de
 To get the most out of this setup you need to install
 
 * [VSCode editor](https://code.visualstudio.com/Download)
-* [Python 3.7+](https://www.python.org/)
+* [Python 3.8+](https://www.python.org/)
 * [Poetry for python](https://python-poetry.org/)
 * [Docker and docker-compose (Optional)](https://www.docker.com/)
 * [Pyenv (Optional)](https://github.com/pyenv/pyenv)
