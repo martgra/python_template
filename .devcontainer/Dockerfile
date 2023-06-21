@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/python:${VARIANT}
 ARG USERNAME=vscode
 
 USER vscode
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+RUN curl -sSL https://install.python-poetry.org | python -
 
 
 RUN mkdir -p /home/$USERNAME/.vscode-server/extensions \
