@@ -25,29 +25,15 @@ repos:
       - id: check-ast
       - id: name-tests-test
 
-  - repo: https://github.com/pycqa/flake8
-    rev: "5.0.4"
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.1.6
     hooks:
-      - id: flake8
-        args: [--config, setup.cfg]
-
-  - repo: https://github.com/psf/black
-    rev: "22.10.0"
-    hooks:
-      - id: black
-        args: ["--line-length", "100", "--config", "pyproject.toml"]
-
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        args: ["--settings-path", "setup.cfg"]
-
-  - repo: https://github.com/PyCQA/pydocstyle
-    rev: "6.1.1"
-    hooks:
-      - id: pydocstyle
-        args: ["--config", "setup.cfg"]
+      # Run the linter.
+      - id: ruff
+        args: [ --fix, "--config=pyproject.toml" ]
+      # Run the formatter.
+      - id: ruff-format
 
   - repo: local
     hooks:
@@ -56,7 +42,7 @@ repos:
         entry: pylint
         language: system
         types: [python]
-        args: ["--rcfile=setup.cfg"]
+        args: ["--rcfile=pyproject.toml"]
         stages: ["manual", "push"]
 
   - repo: https://github.com/python-poetry/poetry
@@ -66,7 +52,6 @@ repos:
       - id: poetry-lock
         stages: ["manual", "push"]
       - id: poetry-export
-        args: ["-f", "requirements.txt", "-o", "requirements.txt"]
         stages: ["manual", "push"]
 
   - repo: local
