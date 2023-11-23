@@ -22,7 +22,7 @@ To get the most out of this setup you need to install
 
 The structure is fairly simple. In this section we focus on the files directly related to setting up/configuring the development environment.
 
-1. Editor settings are in ```.vscode/settings.json``` referencing ```setup.cfg``` as the ground truth.
+1. Editor settings are in ```.vscode/settings.json``` referencing ```pyproject.toml``` as the ground truth.
 2. Dependencies are defined ```pyproject.toml``` which replaces ```requirements.txt``` AND the ```setup.py```
 3. Githooks are installed with ```.pre-commit-config.yaml``` to keep garbage out of the git tree.
 4. The  content of ```.devcontainer/``` is auto detected by VSCode and can spin up containerized environment
@@ -37,8 +37,7 @@ The structure is fairly simple. In this section we focus on the files directly r
 ├── pyproject.toml (2)
 ├── poetry.lock (2)
 ├── .gitignore
-├── .pre-commit-config.yaml (3)
-└── setup.cfg (1)
+└── .pre-commit-config.yaml (3)
 ```
 
 ## Dependencies and building 🕸️
@@ -88,15 +87,12 @@ VSCode support the python language with really good intellisense support through
 
 For an enhanced coding experience:
 
-* [Black](https://black.readthedocs.io/en/stable/) will autoformat the code (on save)
-* [Isort](https://pycqa.github.io/isort/) will reorder the imports (on save)
-* [Flake8](https://flake8.pycqa.org/en/latest/#) enforces pep8 coding standard
+* [Ruff](https://docs.astral.sh/ruff/) - linting and formatting implemented in blistering fast Rust (replacing flake8, isort, black and pydocstyle).
 * [Pylint](https://pylint.pycqa.org/en/latest/) removes pesky bugs
-* [Pydocstyle](http://www.pydocstyle.org/en/stable/) make sure we write docstrings
 * [Autodocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring) Helps us create docstring templates (and have type hint support)
 
 
-The configuration of the linters are set in ```setup.cfg``` and ```pyproject.toml```. Ideally we would have _one_ config file but ```flake8``` and ```black``` are mutually exclusive and do not support one common config file (yet). The linters are also managed by ```.vscode/settings.json```.
+The configuration of the linters are set in ```pyproject.toml```. The linters are also managed by ```.vscode/settings.json```.
 
 >For VSCode these linters are actual extensions with bundled executables and _should_ be faster then envoking linters installed with the python interpeter. To use the linters installed with the interpeter set  
 ```importStrategy``` to ```fromEnvironment```
