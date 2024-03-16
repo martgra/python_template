@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        VARIANT: 3.11-bullseye
+        VARIANT: 3.12-bullseye
     volumes:
       - ..:/workspace:cached # Shared workspace between host and devcontainer
       - python_template_extensions:/home/vscode/.vscode-server/extensions # Storing extensions

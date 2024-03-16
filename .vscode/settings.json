@@ -4,8 +4,8 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.codeActionsOnSave": {
-            "source.fixAll": true,
-            "source.organizeImports": true
+            "source.fixAll": "explicit",
+            "source.organizeImports": "explicit"
         },
         "editor.rulers": [100],
         "files.trimTrailingWhitespace": true
@@ -31,5 +31,6 @@
     "python.testing.autoTestDiscoverOnSaveEnabled": true,
     "python.testing.pytestArgs": ["tests"],
     "pylint.importStrategy": "useBundled",
-    "pylint.args": ["--rcfile", "${workspaceFolder}/pyproject.toml"]
+    "pylint.args": ["--rcfile", "${workspaceFolder}/pyproject.toml"],
+    "python.testing.unittestEnabled": false
 }

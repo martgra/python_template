@@ -7,6 +7,9 @@
 	"workspaceFolder": "/workspace",
 	"customizations": {
 		"vscode": {
+			"settings": {
+				"python.venvFolders": ["$HOME/.cache/pypoetry/virtualenvs"]
+			  },
 			"extensions": [
 				"ms-python.python",
 				"ms-python.pylint",
@@ -27,5 +30,7 @@
 	"remoteUser": "vscode",
 	"remoteEnv": {
 		"PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
-	}
+	},
+	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh"
+
 }

@@ -24,6 +24,18 @@ line-length = 100
 exclude = ["tests/*"]
 extend-ignore = ["E203"]
 
+[tool.ruff.lint]
+select = ["E", "W", "D", "F", "UP", "B", "SIM","I"]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["D104"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["api"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
 [tool.pytest]
 testpaths = ["tests"]
 
