@@ -25,8 +25,6 @@
             "strings": true
         }
     },
-
-    // Extension(s) settings
     "python.testing.pytestEnabled": true,
     "python.testing.autoTestDiscoverOnSaveEnabled": true,
     "python.testing.pytestArgs": ["tests"],

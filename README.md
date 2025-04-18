@@ -115,6 +115,39 @@ If you really need to check in some code and ```pre-commit``` prevents you, you 
 uv run pre-commit commit -m "commit message" --no-verify
 ```
 
+#### Hooks in pre-commit
+
+| Name           | Explanation                                                                 |
+|----------------|-----------------------------------------------------------------------------|
+| ruff           | Lints Python code and applies automatic fixes using Ruff, driven by your `pyproject.toml` config. |
+| ruff-format    | Formats Python code according to Ruff’s formatting rules, using your project config.           |
+| pylint         | Runs Pylint static analysis on your Python files (using `pyproject.toml` for settings).       |
+| pytest-check   | Executes your test suite with pytest to ensure no tests are broken before pushing.            |
+| uv-lock        | Validates the integrity and correctness of your `pyproject.toml` lock file.                   |
+| deptry         | Detects unused or missing dependencies in your Python project.                                 |
+| detect-secrets | Scans your codebase for potential secret tokens or credentials before pushing.               |
+
+
+#### Some extra words about Detect-secrets
+To prevent accidental commits of sensitive information, we use [detect-secrets](https://github.com/Yelp/detect-secrets) with pre-commit.​ These are usually passwords, tokens or other credentials that you don't want open on the web.
+
+Detect-Secrets will prevent pushes to remote repository if a secret has been checked in. Detect-secrets checks the content of the repository towards
+```.secrets.baseline```.
+
+If a new potential secret is added we can rescan the repositroy to add lines of code we want to allow to push.
+
+Create the baseline file the first time - audit this carefully.
+
+```bash
+detect-secrets scan > .secrets.baseline
+```
+
+If the ```.secrets.baseline``` file needs updating you can do
+
+```bash
+detect-secrets scan --baseline .secrets.baseline > .secrets.baseline
+```
+
 ## Testing 👷
 
 The Python extension in VSCode comes with support of several testing frameworks. Here the choice fell on ```pytest``` and ```pytest-cov``` (the coverage plugin for ```pytest```).
