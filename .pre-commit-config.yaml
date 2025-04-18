@@ -40,27 +40,24 @@ repos:
     hooks:
       - id: pylint
         name: pylint
-        entry: poetry run pylint
+        entry: uv run pylint
         language: system
         types: [python]
         args: ["--rcfile=pyproject.toml"]
-        stages: ["manual", "push"]
-
-  - repo: https://github.com/python-poetry/poetry
-    rev: "1.2.1"
-    hooks:
-      - id: poetry-check
-      - id: poetry-lock
-        stages: ["manual", "push"]
-      - id: poetry-export
         stages: ["manual", "push"]
 
   - repo: local
     hooks:
       - id: pytest-check
         name: pytest-check
-        entry: poetry run pytest
+        entry: uv run pytest
         language: system
         pass_filenames: false
         always_run: true
         stages: ["manual", "push"]
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.6.10
+    hooks:
+      - id: uv-lock
+        name: Check pyproject.toml validity"

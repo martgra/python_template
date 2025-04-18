@@ -6,12 +6,13 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        VARIANT: 3.12-bullseye
+        VARIANT: 3.13-bookworm
     volumes:
       - ..:/workspace:cached # Shared workspace between host and devcontainer
       - python_template_extensions:/home/vscode/.vscode-server/extensions # Storing extensions
       - python_template_commandhistory:/home/vscode/commandhistory # Persistant command line history
       - python_template_cache:/home/vscode/.cache # Caching poetry/pip wheels
+      - /workspace/.venv
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity

@@ -7,9 +7,6 @@
 	"workspaceFolder": "/workspace",
 	"customizations": {
 		"vscode": {
-			"settings": {
-				"python.venvFolders": ["$HOME/.cache/pypoetry/virtualenvs"]
-			  },
 			"extensions": [
 				"ms-python.python",
 				"ms-python.pylint",
@@ -22,11 +19,9 @@
 			]
 		}
 	},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
 		8888
 	],
-	// Use 'postCreateCommand' to run commands after the container is created.
 	"remoteUser": "vscode",
 	"remoteEnv": {
 		"PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
