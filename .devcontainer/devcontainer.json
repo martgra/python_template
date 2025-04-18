@@ -1,31 +1,28 @@
 {
-	"name": "Python 3",
-	"dockerComposeFile": [
-		"docker-compose.yaml"
-	],
-	"service": "app",
-	"workspaceFolder": "/workspace",
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"ms-python.python",
-				"ms-python.pylint",
-				"charliermarsh.ruff",
-				"njpwerner.autodocstring",
-				"eamodio.gitlens",
-				"mhutchie.git-graph",
-				"Gruntfuggly.todo-tree",
-				"esbenp.prettier-vscode"
-			]
-		}
-	},
-	"forwardPorts": [
-		8888
-	],
-	"remoteUser": "vscode",
-	"remoteEnv": {
-		"PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
-	},
-	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh"
+    "name": "Python 3",
+    "dockerComposeFile": ["docker-compose.yaml"],
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "settings": { "remote.SSH.enableAgentForwarding": true },
 
+            "extensions": [
+                "ms-python.python",
+                "ms-python.pylint",
+                "charliermarsh.ruff",
+                "njpwerner.autodocstring",
+                "eamodio.gitlens",
+                "mhutchie.git-graph",
+                "Gruntfuggly.todo-tree",
+                "esbenp.prettier-vscode"
+            ]
+        }
+    },
+    "forwardPorts": [8888],
+    "remoteUser": "vscode",
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
+    },
+    "postCreateCommand": "bash .devcontainer/postCreateCommand.sh"
 }

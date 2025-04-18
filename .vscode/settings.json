@@ -30,5 +30,7 @@
     "python.testing.pytestArgs": ["tests"],
     "pylint.importStrategy": "useBundled",
     "pylint.args": ["--rcfile", "${workspaceFolder}/pyproject.toml"],
-    "python.testing.unittestEnabled": false
+    "python.testing.unittestEnabled": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
 }
