@@ -1,81 +1,110 @@
+minimum_pre_commit_version: "3.5.0"
+default_stages: [commit]
+
+############################################################
+# Global Exclusions
+# These directories rarely contain source worth linting.
+############################################################
+exclude: |
+  (?x)(
+    ^data/.*|
+    ^\.vscode/.*|
+    ^\.devcontainer/.*
+  )
+
+############################################################
+# FAST COMMIT HOOKS (keep quick & mostly autofix)
+############################################################
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v4.6.0 # Latest stable as of 2025-09
     hooks:
       - id: trailing-whitespace
+        name: Trim Trailing Whitespace
         args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+        name: Ensure Final Newline
       - id: check-json
+        name: Validate JSON (excluding tool configs)
         exclude: |
           (?x)^(
               \.vscode/.*|
               \.devcontainer/devcontainer.json|
           )$
       - id: pretty-format-json
+        name: Format JSON
         args: ["--autofix", "--no-ensure-ascii", "--no-sort-keys"]
         exclude: |
           (?x)^(
               \.vscode/.*|
               \.devcontainer/devcontainer.json|
+              .*\.ipynb
           )$
       - id: check-toml
       - id: check-yaml
-      - id: end-of-file-fixer
-      - id: detect-private-key
-      - id: check-added-large-files
       - id: check-ast
       - id: name-tests-test
+      - id: detect-private-key # Early lightweight key pattern scan
+      - id: check-added-large-files
+        args: ["--maxkb=500"] # Policy: reject very large blobs
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    # Ruff version.
-    rev: v0.1.6
+    rev: v0.13.2
     hooks:
-      # Run the linter.
       - id: ruff
-        args: [ --fix, "--config=pyproject.toml" ]
-      # Run the formatter.
+        name: Ruff Linter (autofix)
+        args: [--fix, "--config=pyproject.toml"]
       - id: ruff-format
-        args: ["--config=pyproject.toml" ]
+        name: Ruff Formatter
+        args: ["--config=pyproject.toml"]
 
-  - repo: local
-    hooks:
-      - id: pylint
-        name: pylint
-        entry: uv run pylint
-        language: system
-        types: [python]
-        args: ["--rcfile=pyproject.toml"]
-        stages: ["pre-push"]
-
+  ############################################################
+  # PUSH-TIME (SLOWER / ANALYSIS) HOOKS
+  # These run less frequently to keep commit loop fast.
+  ############################################################
   - repo: local
     hooks:
       - id: pytest-check
-        name: pytest-check
+        name: Run Test Suite
         entry: uv run pytest
         language: system
         pass_filenames: false
         always_run: true
-        stages: ["pre-push"]
-
-  - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.6.10
-    hooks:
-      - id: uv-lock
-        name: Check pyproject.toml validity"
-        stages: ["pre-push"]
-
-
-  - repo: local
-    hooks:
+        stages: [pre-push]
+        # Optional faster feedback: args: ["-q", "--maxfail=1"]
+      - id: pylint
+        name: Pylint (design checks)
+        entry: uv run pylint
+        language: system
+        types: [python]
+        args: ["--rcfile=pyproject.toml"]
+        stages: [pre-push]
       - id: deptry
-        name: "Deptry"
+        name: Deptry (dependency hygiene)
         entry: uv run deptry python_package
         language: system
         pass_filenames: false
+        stages: [pre-push]
+      - id: vulture
+        name: Vulture (dead code)
+        entry: uv run vulture python_package
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
 
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.5.0
     hooks:
-    -   id: detect-secrets
-        args: ['--baseline', '.secrets.baseline']
+      - id: detect-secrets
+        name: Detect Secrets (baseline)
+        args: ["--baseline", ".secrets.baseline"]
         exclude: uv.lock
-        stages: ["pre-push"]
+        stages: [pre-push]
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.8.22
+    hooks:
+      - id: uv-lock
+        name: Validate pyproject / lock
+        stages: [pre-push]
+        pass_filenames: false

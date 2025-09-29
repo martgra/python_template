@@ -1,0 +1,15 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install uv based on the version defined in pyproject.toml
+        uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@v3
+      - uses: j178/prek-action@v1

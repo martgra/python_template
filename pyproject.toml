@@ -3,21 +3,22 @@ name = "python-package"
 version = "0.1.0"
 description = ""
 authors = [{ name = "Martin Gran", email = "martgra@gmail.com" }]
-requires-python = "~=3.10"
+requires-python = ">=3.10"
 readme = "README.md"
 dependencies = []
 
 [dependency-groups]
 dev = [
-    "deptry>=0.23.0",
+    "deptry>=0.23.1",
     "detect-secrets>=1.5.0",
-    "pre-commit>=4.2.0",
-    "pylint>=3.3.6",
-    "ruff>=0.11.6",
+    "prek>=0.2.2",
+    "pylint>=3.3.8",
+    "ruff>=0.13.2",
+    "vulture>=2.14",
 ]
 test = [
-    "pytest>=8.3.5",
-    "pytest-cov>=6.1.1",
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
 ]
 
 [tool.uv]
@@ -66,3 +67,10 @@ testpaths = ["tests"]
 [tool.coverage.run]
 branch = true
 source = ["python_package"]
+
+[tool.vulture]
+make_whitelist = true
+min_confidence = 80
+paths = ["python_package"]
+sort_by_size = true
+verbose = true

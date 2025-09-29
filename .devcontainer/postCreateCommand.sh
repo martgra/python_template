@@ -1,14 +1,20 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 sudo chown -R vscode:vscode /workspace/.venv
 
-echo "Upgrading pip..."
-pip install --upgrade pip > /dev/null 2>&1
+# Install/update PreK tool (idempotent)
+echo "Ensuring prek installed (pinned via uv tool cache)..."
+uv tool install prek >/dev/null 2>&1 || true
+prek install
 
-echo "Installing pre-commit..."
-uv tool install pre-commit
-pre-commit install
+# Sync dependencies only if environment missing or manifests changed (safety net; main pre-warm is in image layer)
+if [ ! -d .venv ] || [ pyproject.toml -nt .venv ] || [ uv.lock -nt .venv ]; then
+	echo "Performing uv sync (post-create)..."
+	uv sync
+else
+	echo "uv sync skipped (environment up-to-date)."
+fi
 
-echo "Postcreate success"
+echo "PostCreate complete"

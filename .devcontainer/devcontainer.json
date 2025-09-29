@@ -1,17 +1,23 @@
 {
-  "name": "Python 3",
+  // Dev Container definition for python_package
+  "name": "python_package",
   "dockerComposeFile": ["docker-compose.yaml"],
   "service": "app",
   "workspaceFolder": "/workspace",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
   "customizations": {
     "vscode": {
       "settings": {
-        "remote.SSH.enableAgentForwarding": true,
-        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python"
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+        "terminal.integrated.defaultProfile.linux": "zsh"
       },
       "extensions": [
         "ms-python.python",
-        "ms-python.pylint",
         "charliermarsh.ruff",
         "njpwerner.autodocstring",
         "eamodio.gitlens",

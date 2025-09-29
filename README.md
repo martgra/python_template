@@ -22,8 +22,10 @@ The structure is fairly simple. In this section we focus on the files directly r
 
 1. Editor settings are in ```.vscode/settings.json``` referencing ```pyproject.toml``` as the ground truth.
 2. Dependencies are defined in ```pyproject.toml``` and locked with ```uv.lock``` which replaces ```requirements.txt``` AND ```setup.py```.
-3. Githooks are installed with ```.pre-commit-config.yaml``` to keep garbage out of the git tree.
+3. Git hooks are configured in ```.pre-commit-config.yaml``` (executed via `prek`) to keep garbage out of the git tree.
 4. The content of ```.devcontainer/``` is auto detected by VSCode and can spin up a containerized environment.
+
+> Supported Python: `>=3.10` (Docker devcontainer currently pins 3.13). Use a matching interpreter locally for parity.
 
 ```bash
 ├── README.md
@@ -87,7 +89,7 @@ VSCode supports the Python language with really good intellisense support throug
 For an enhanced coding experience:
 
 * [Ruff](https://docs.astral.sh/ruff/) - linting and formatting implemented in blistering fast Rust (replacing flake8, isort, black and pydocstyle).
-* [Pylint](https://pylint.pycqa.org/en/latest/) removes pesky bugs
+* [Pylint](https://pylint.pycqa.org/en/latest/) - deeper design/static analysis (runs pre-push via hook)
 * [Autodocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring) Helps us create docstring templates (and have type hint support)
 
 The configuration of the linters are set in ```pyproject.toml```. The linters are also managed by ```.vscode/settings.json```.
@@ -95,27 +97,37 @@ The configuration of the linters are set in ```pyproject.toml```. The linters ar
 >For VSCode these linters are actual extensions with bundled executables and _should_ be faster than invoking linters installed with the Python interpreter. To use the linters installed with the interpreter, set  
 ```importStrategy``` to ```fromEnvironment```.
 
-### Linting with pre-commit
+### Linting with prek
 
-Linting (and other code quality measures) are enforced on us by [pre-commit](https://pre-commit.com/#intro), a tool for creating [githooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks). In this setup these hooks will be run either before ```commit``` or ```push```. A list of available pre-commit hooks can be found [here :-)](https://pre-commit.com/hooks.html)
+_Migration note:_ We replaced the `pre-commit` CLI with the faster drop‑in alternative `prek`; the config file (`.pre-commit-config.yaml`) remains the same.
 
->Look at pre-commit as your personal CI-pipeline helping you to remember agreed coding styles and preventing annoying mistakes and subsequent fixes ever reaching your source tree. This "pipeline" is declared in ```pre-commit-config.yaml```.
+Linting (and other code quality measures) are enforced by [prek](https://github.com/j178/prek) — a faster drop‑in replacement for [pre-commit](https://pre-commit.com/#intro). It uses the same ```.pre-commit-config.yaml``` format. Hooks run either before `commit` or on `pre-push` depending on their configuration.
 
-To add the ```git-hooks``` declared in ```.pre-commit-config.yaml``` run the following command:
+>Think of these git hooks (managed by `prek`) as a lightweight local CI pipeline enforcing agreed coding styles & safety checks. Configuration lives in `.pre-commit-config.yaml` (same schema as pre-commit).
+
+To install / refresh the git hooks defined in `.pre-commit-config.yaml`:
 
 ```bash
-uv run pre-commit install
+uv tool install prek  # no-op if already installed via devcontainer
+prek install           # sets up .git/hooks/*
 ```
 
 The hooks are now installed and most of them will be run every time you try to ```commit``` to your local branch. A few are ```on push``` only.
 
-If you really need to check in some code and ```pre-commit``` prevents you, you can run the following to override the hooks. Although tempting, this is not recommended.
-
+Useful `prek` commands:
 ```bash
-uv run pre-commit commit -m "commit message" --no-verify
+prek run                 # run all hooks on staged files
+prek run --all-files     # run all hooks on the whole repo
+prek run ruff ruff-format  # run a subset
 ```
 
-#### Hooks in pre-commit
+If you really need to check in some code and a hook (via `prek`) blocks you, you can bypass once (not recommended):
+
+```bash
+git commit -m "commit message" --no-verify
+```
+
+#### Hooks (prek consuming `.pre-commit-config.yaml`)
 
 | Name           | Explanation                                                                 |
 |----------------|-----------------------------------------------------------------------------|
@@ -125,11 +137,12 @@ uv run pre-commit commit -m "commit message" --no-verify
 | pytest-check   | Executes your test suite with pytest to ensure no tests are broken before pushing.            |
 | uv-lock        | Validates the integrity and correctness of your `pyproject.toml` lock file.                   |
 | deptry         | Detects unused or missing dependencies in your Python project.                                 |
+| vulture        | Detects unused (dead) code                                                                     |
 | detect-secrets | Scans your codebase for potential secret tokens or credentials before pushing.               |
 
 
 #### Some extra words about Detect-secrets
-To prevent accidental commits of sensitive information, we use [detect-secrets](https://github.com/Yelp/detect-secrets) with pre-commit.​ These are usually passwords, tokens or other credentials that you don't want open on the web.
+To prevent accidental commits of sensitive information, we use [detect-secrets](https://github.com/Yelp/detect-secrets) with `prek` (pre-commit compatible hook). These are usually passwords, tokens or other credentials that you don't want public.
 
 Detect-Secrets will prevent pushes to remote repository if a secret has been checked in. Detect-secrets checks the content of the repository towards
 ```.secrets.baseline```.
@@ -154,7 +167,7 @@ The Python extension in VSCode comes with support of several testing frameworks.
 
 ### Configuring pytest
 
-Pytest is mainly configured through the ```setup.cfg``` file which specifies the location to the ```tests``` directory. In the ```.vscode/settings.json``` the pytest support of VSCode is set up with _autoDiscoverOnSave_ which enables VSCode to discover the included tests. Handy 👋
+Pytest is configured via `[tool.pytest]` in `pyproject.toml` (tests path). `.vscode/settings.json` enables auto discovery on save.
 
 ### Running tests
 
@@ -200,6 +213,7 @@ To generate an interactive coverage report in html simply run:
 ```bash
 uv run pytest --cov-report html --cov=python_package tests
 ```
+Open `htmlcov/index.html` in a browser.
 
 ## Devcontainer 🛸
 
@@ -212,12 +226,16 @@ The devcontainer files sit in ```.devcontainer``` folder and consist of
 ├── Dockerfile (1)
 ├── devcontainer.json (2)
 ├── docker-compose.yaml (3)
-└── postCreateCommand.sh (4)
+├── postCreateCommand.sh (4)
+└── postStartCommand.sh (5)
 ```
 1. The Dockerfile that defines the environment. Build your own or there is [a variety to choose from here](https://hub.docker.com/_/microsoft-vscode-devcontainers)
 2. ```devcontainer.json``` - The file that configures the environment!
 3. ```docker-compose.yaml``` - I have chosen to extend ```.devcontainer.json``` with a docker-compose file. This allows easily extending the environment with supporting services such as a database or a S3 mock.
-4. ```postCreateCommand.sh``` is a script that is run after the environment is built the first time! Good place to add user specific actions like installing pre-commit hooks or python dependencies.
+4. ```postCreateCommand.sh``` is a script that is run after the environment is built the first time (installs `prek` & hooks, syncs deps).
+5. ```postStartCommand.sh``` runs each container start (sync / idempotent setup tasks).
+
+> The devcontainer pre-installs uv + prek and performs a frozen sync on start; local hosts only need `uv sync` + `prek install` once.
 
 [Follow this excellent guide to get going!](https://code.visualstudio.com/docs/devcontainers/containers)
 

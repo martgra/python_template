@@ -1,10 +1,11 @@
-version: '3.8'
+version: "3.8"
 services:
   app:
     user: vscode
     build:
-      context: .
-      dockerfile: Dockerfile
+      # Use repository root as build context so we can pre-warm dependencies (pyproject/uv.lock)
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
       args:
         VARIANT: 3.13-bookworm
     volumes:
