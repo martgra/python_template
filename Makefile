@@ -13,6 +13,7 @@ help:
 	@echo "  format       - Format code with ruff"
 	@echo "  run          - Run the main application"
 	@echo "  clean        - Remove cache and temporary files"
+	@echo "  secrets      - Scan for secrets using detect-secrets"
 
 install: uv.lock
 	uv sync --frozen
@@ -48,3 +49,9 @@ clean:
 	find . -type d -name ".ruff_cache" -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
 	rm -rf .coverage htmlcov/ dist/ build/
+
+
+
+
+
+
