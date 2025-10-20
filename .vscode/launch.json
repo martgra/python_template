@@ -8,7 +8,7 @@
             "name": "Python: Module",
             "type": "debugpy",
             "request": "launch",
-            "module": "python_package",
+            "module": "{{ package_name }}",
             "justMyCode": false
         }
     ]

@@ -1,6 +1,6 @@
 {
-  // Dev Container definition for python_package
-  "name": "python_package",
+  // Dev Container definition for python_template
+  "name": "python_template",
   "dockerComposeFile": ["docker-compose.yaml"],
   "service": "app",
   "workspaceFolder": "/workspace",

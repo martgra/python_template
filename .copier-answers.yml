@@ -1,0 +1,7 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 9a114fa
+_src_path: git+file:///workspace
+project_name: python_template
+use_devcontainer: true
+use_github_actions: true
+use_vscode: true

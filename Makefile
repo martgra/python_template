@@ -1,7 +1,7 @@
 # Makefile for uv with smart install + explicit updates
 
 .DEFAULT_GOAL := install
-.PHONY: install update-deps test lint format clean run help check all
+.PHONY: install update-deps test lint format clean run help check all secrets
 
 # Help target
 help:
@@ -27,13 +27,19 @@ test:
 	uv run pytest tests/
 
 lint:
-	uv run ruff check python_package tests
+	uv run ruff check python_template tests
 
 format:
-	uv run ruff format python_package tests
+	uv run ruff format python_template tests
 
 run:
-	uv run python python_package/__main__.py
+	uv run python python_template/__main__.py
+
+secrets: .secrets.baseline
+	uv run detect-secrets scan --baseline .secrets.baseline
+
+.secrets.baseline:
+	uv run detect-secrets scan > .secrets.baseline
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true

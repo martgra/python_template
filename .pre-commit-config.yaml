@@ -81,13 +81,13 @@ repos:
         stages: [pre-push]
       - id: deptry
         name: Deptry (dependency hygiene)
-        entry: uv run deptry python_package
+        entry: uv run deptry python_template
         language: system
         pass_filenames: false
         stages: [pre-push]
       - id: vulture
         name: Vulture (dead code)
-        entry: uv run vulture python_package
+        entry: uv run vulture python_template
         language: system
         pass_filenames: false
         stages: [pre-push]
