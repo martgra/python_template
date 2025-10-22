@@ -1,5 +1,5 @@
 # Makefile for uv with smart install + explicit updates
-
+SHELL := /bin/bash
 .DEFAULT_GOAL := install
 .PHONY: install update-deps test lint format clean run help check all secrets
 
