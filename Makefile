@@ -1,44 +1,31 @@
-# Makefile for uv with smart install + explicit updates
-
-.DEFAULT_GOAL := install
-.PHONY: install update-deps test lint format clean run help check all
-
-# Help target
-help:
-	@echo "Available targets:"
-	@echo "  install      - Install dependencies (frozen)"
-	@echo "  update-deps  - Update and sync dependencies"
-	@echo "  test         - Run tests with pytest"
-	@echo "  lint         - Check code with ruff"
-	@echo "  format       - Format code with ruff"
-	@echo "  run          - Run the main application"
-	@echo "  clean        - Remove cache and temporary files"
-
-install: uv.lock
-	uv sync --frozen
-
-uv.lock: pyproject.toml
-	uv sync
-
-update-deps:
-	uv sync
+SHELL := /bin/bash
+.PHONY: test build clean
 
 test:
-	uv run pytest tests/
+	@set -euo pipefail; \
+	tmpdir=$$(mktemp -d); \
+	echo "🔧 Generating template into: $$tmpdir"; \
+	uvx copier copy . "$$tmpdir" --defaults --force --trust; \
+	cd "$$tmpdir"; \
+	echo "🌀 Initializing git repo..."; \
+	git add -A >/dev/null; \
+	uvx prek install >/dev/null; \
+	echo "🚀 Running pre-commit hooks..."; \
+	uvx prek run --all-files; \
+	cd - >/dev/null; \
+	rm -rf "$$tmpdir"; \
+	echo "✅ All checks passed and temp folder cleaned up."
 
-lint:
-	uv run ruff check python_package tests
-
-format:
-	uv run ruff format python_package tests
-
-run:
-	uv run python python_package/__main__.py
+build:
+	@echo "🔧 Generating template into: build_output/"
+	@rm -rf build_output
+	@uvx copier copy . build_output --defaults --force --trust --data skip_git_init=true
+	@echo "🚀 Running pre-commit hooks on build output..."
+	@cd build_output && uvx prek install && uvx prek run --files $$(find . -type f -not -path '*/\.git/*')
+	@echo "✅ Template generated and validated successfully!"
+	@echo "📁 Check the output in: build_output/"
 
 clean:
-	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
-	find . -type f -name "*.pyc" -delete
-	find . -type d -name ".pytest_cache" -exec rm -rf {} + 2>/dev/null || true
-	find . -type d -name ".ruff_cache" -exec rm -rf {} + 2>/dev/null || true
-	find . -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
-	rm -rf .coverage htmlcov/ dist/ build/
+	@echo "🧹 Cleaning build output..."
+	@rm -rf build_output
+	@echo "✅ Cleaned!"

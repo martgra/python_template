@@ -48,6 +48,50 @@ repos:
       - id: check-added-large-files
         args: ["--maxkb=500"] # Policy: reject very large blobs
 
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.13.2
+    hooks:
+      - id: ruff
+        name: Ruff Linter (autofix)
+        args: [--fix, "--config=pyproject.toml"]
+      - id: ruff-format
+        name: Ruff Formatter
+        args: ["--config=pyproject.toml"]
+
+  ############################################################
+  # PUSH-TIME (SLOWER / ANALYSIS) HOOKS
+  # These run less frequently to keep commit loop fast.
+  ############################################################
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: Run Test Suite
+        entry: uv run pytest
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]
+        # Optional faster feedback: args: ["-q", "--maxfail=1"]
+      - id: pylint
+        name: Pylint (design checks)
+        entry: uv run pylint
+        language: system
+        types: [python]
+        args: ["--rcfile=pyproject.toml"]
+        stages: [pre-push]
+      - id: deptry
+        name: Deptry (dependency hygiene)
+        entry: uv run deptry {{ package_name }}
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
+      - id: vulture
+        name: Vulture (dead code)
+        entry: uv run vulture {{ package_name }}
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
+
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.5.0
     hooks:
@@ -56,3 +100,11 @@ repos:
         args: ["--baseline", ".secrets.baseline"]
         exclude: uv.lock
         stages: [pre-push]
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.8.22
+    hooks:
+      - id: uv-lock
+        name: Validate pyproject / lock
+        stages: [pre-push]
+        pass_filenames: false

@@ -1,0 +1,75 @@
+# Minimum Copier version required
+_min_copier_version: "9.0.0"
+
+# Template files are in the template/ subdirectory
+_subdirectory: template
+
+_skip_if_exists:
+  - ".env"
+  - "{{ package_name }}/"
+  - ".secrets.baseline"
+
+# Exclude helper files from being copied
+_exclude:
+  - includes
+  - "*.pyc"
+  - "__pycache__"
+  - ".git"
+
+# Welcome message before copying
+_message_before_copy: |
+  🚀 Welcome to the Python Template!
+
+  Let's set up your new Python project.
+
+# Success message after copying
+_message_after_copy: |
+  ✅ Project "{{ project_name }}" created successfully!
+
+  Next steps:
+    cd {{ _copier_conf.dst_path }}
+    uv sync
+    make test
+
+  Happy coding! 🎉
+
+# Questions for the user
+project_name:
+  type: str
+  help: What is your project name?
+  default: "python-template"
+  placeholder: "my-awesome-project"
+
+# Auto-generated from project_name - never asked to user
+package_name:
+  type: str
+  when: false # This makes it hidden - user is never prompted
+  default: "{% from 'includes/slugify.jinja' import slugify %}{{ slugify(project_name) }}"
+
+use_devcontainer:
+  type: bool
+  help: Include VSCode devcontainer configuration? (Docker required)
+  default: yes
+
+use_vscode:
+  type: bool
+  help: Include VSCode configuration?
+  default: yes
+
+use_github_actions:
+  type: bool
+  help: Include GitHub Actions CI configuration?
+  default: yes
+
+skip_git_init:
+  type: bool
+  when: false # Hidden parameter for testing
+  default: no
+
+_tasks:
+  - command: "git init"
+    description: "🌀 Initializing git repository"
+    when: "{{ not skip_git_init }}"
+  - command: "uvx prek install"
+    description: "🔧 Installing pre-commit hooks"
+    when: "{{ not skip_git_init }}"

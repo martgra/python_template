@@ -10,9 +10,9 @@ services:
         VARIANT: 3.13-bookworm
     volumes:
       - ..:/workspace:cached # Shared workspace between host and devcontainer
-      - python_template_extensions:/home/vscode/.vscode-server/extensions # Storing extensions
-      - python_template_commandhistory:/home/vscode/commandhistory # Persistant command line history
-      - python_template_cache:/home/vscode/.cache # Caching poetry/pip wheels
+      - {{ package_name }}_extensions:/home/vscode/.vscode-server/extensions # Storing extensions
+      - {{ package_name }}_commandhistory:/home/vscode/commandhistory # Persistant command line history
+      - {{ package_name }}_cache:/home/vscode/.cache # Caching poetry/pip wheels
       - /workspace/.venv
 
     # Overrides default command so things don't shut down after the process ends.
@@ -20,6 +20,6 @@ services:
 
 # Volumes that are not shared between Host and Devcontainer must be listed here.
 volumes:
-  python_template_extensions:
-  python_template_commandhistory:
-  python_template_cache:
+  {{ package_name }}_extensions:
+  {{ package_name }}_commandhistory:
+  {{ package_name }}_cache:
