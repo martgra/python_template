@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "charliermarsh.ruff",
+    "njpwerner.autodocstring",
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "Gruntfuggly.todo-tree",
+    "esbenp.prettier-vscode",
+    "ms-vscode-remote.remote-containers"
+  ]
+}
