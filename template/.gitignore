@@ -162,3 +162,4 @@ cython_debug/
 # Template test output
 temp_out/
 test_output/
+build_output/
