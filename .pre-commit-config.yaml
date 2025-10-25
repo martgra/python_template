@@ -56,3 +56,12 @@ repos:
         args: ["--baseline", ".secrets.baseline"]
         exclude: uv.lock
         stages: [pre-push]
+
+  - repo: https://github.com/lycheeverse/lychee
+    rev: lychee-v0.21.0
+    hooks:
+      - id: lychee
+        name: Check Links
+        args: ["--no-progress", "--exclude", "file://"]
+        files: \.(md|jinja)$
+        stages: [pre-push]

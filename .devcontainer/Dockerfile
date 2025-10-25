@@ -6,6 +6,11 @@ ARG UV_VERSION=v0.4.30
 
 USER ${USERNAME}
 
+# Install Rust and Cargo (needed for lychee link checker)
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+    . $HOME/.cargo/env && \
+    cargo install lychee-link-checker@0.21.0
+
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
     mkdir -p /home/${USERNAME}/.cache && \
     chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.cache
