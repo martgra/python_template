@@ -22,7 +22,7 @@ An optional devcontainer allows you to spin up a reproducible environment using 
 The easiest way to get started is generating the project with [Copier](https://copier.readthedocs.io/en/stable/generating/)!
 
 ```bash
-uvx copier copy gh:martgra/python_template --vcs-ref=template --trust <destination>
+uvx copier copy gh:martgra/python_template --trust <destination>
 ```
 
 ## Project structure
