@@ -19,13 +19,7 @@ A [Copier](https://copier.readthedocs.io/) template for modern Python projects u
 Generate a new project using Copier:
 
 ```bash
-uvx copier copy gh:martgra/python_template --vcs-ref=template <destination>
-```
-
-Or for interactive mode:
-
-```bash
-uvx copier copy gh:martgra/python_template --vcs-ref=template <destination>
+uvx copier copy gh:martgra/python_template <destination>
 ```
 
 ## Development
@@ -37,6 +31,7 @@ make test
 ```
 
 This will:
+
 1. Generate a project from the template in a temp directory
 2. Initialize git and pre-commit hooks
 3. Run all quality checks
