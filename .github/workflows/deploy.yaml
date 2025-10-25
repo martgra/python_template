@@ -22,6 +22,14 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v5
 
+      - name: Check markdown links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --verbose --no-progress --exclude 'file://' 'template/**/*.md' 'template/**/*.jinja' 'README.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Avoid rate limiting when checking GitHub URLs
+
       - name: Run template tests
         run: make test
 
