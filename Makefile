@@ -19,7 +19,7 @@ test:
 build:
 	@echo "🔧 Generating template into: build_output/"
 	@rm -rf build_output
-	@uvx copier copy . build_output --defaults --force --trust --data skip_git_init=true
+	@uvx copier copy --vcs-ref=HEAD . build_output --defaults --force --trust --data skip_git_init=true
 	@echo "🚀 Running pre-commit hooks on build output..."
 	@cd build_output && uvx prek install && uvx prek run --files $$(find . -type f -not -path '*/\.git/*')
 	@echo "✅ Template generated and validated successfully!"
