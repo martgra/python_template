@@ -49,14 +49,14 @@ jobs:
           cp -r ../python_template/build_output/. .
           # Remove copier answers file (shouldn't be in generated project)
           rm -f .copier-answers.yml
-          
+
       - name: Commit and create PR
         run: |
           cd ../main-repo
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          
+
           # Check if there are changes
           if git diff --staged --quiet; then
             echo "No changes to commit"
@@ -68,7 +68,7 @@ jobs:
               git commit -m "Initial commit from template@${{ steps.template_sha.outputs.sha }}"
               git push origin main
             fi
-            
+
             # Create and push PR branch
             git checkout -b template-build
             git commit -m "Build from template@${{ steps.template_sha.outputs.sha }}" --allow-empty
