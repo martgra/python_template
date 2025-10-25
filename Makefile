@@ -5,7 +5,7 @@ test:
 	@set -euo pipefail; \
 	tmpdir=$$(mktemp -d); \
 	echo "🔧 Generating template into: $$tmpdir"; \
-	uvx copier copy . "$$tmpdir" --defaults --force --trust; \
+	uvx copier copy --vcs-ref=HEAD . "$$tmpdir" --defaults --force --trust; \
 	cd "$$tmpdir"; \
 	echo "🌀 Initializing git repo..."; \
 	git add -A >/dev/null; \
