@@ -4,12 +4,16 @@ FROM mcr.microsoft.com/vscode/devcontainers/python:${VARIANT}
 ARG USERNAME=vscode
 ARG UV_VERSION=v0.4.30
 
+# Install dependencies for lychee (link checker)
+USER root
+RUN apt-get update && apt-get install -y gcc pkg-config libssl-dev && rm -rf /var/lib/apt/lists/*
+
 USER ${USERNAME}
 
-# Install Rust and Cargo (needed for lychee link checker)
+# Install Rust and lychee link checker
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
     . $HOME/.cargo/env && \
-    cargo install lychee-link-checker@0.21.0
+    cargo install lychee
 
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
     mkdir -p /home/${USERNAME}/.cache && \
