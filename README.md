@@ -1,5 +1,6 @@
 # python-template
 
+![CI](https://github.com/martgra/python-template/actions/workflows/ci.yaml/badge.svg?branch=main)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue?logo=python&logoColor=white)
 [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
 
