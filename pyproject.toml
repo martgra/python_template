@@ -1,5 +1,5 @@
 [project]
-name = "python-template"
+name = "python_template"
 version = "0.1.0"
 description = ""
 authors = [{ name = "User Name", email = "you@example.com" }]
