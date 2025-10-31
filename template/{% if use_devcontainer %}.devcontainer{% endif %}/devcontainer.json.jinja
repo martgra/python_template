@@ -33,10 +33,10 @@
     "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
   },
   "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
-  "postStartCommand": "bash .devcontainer/postStartCommand.sh",
+  "postStartCommand": "bash .devcontainer/postStartCommand.sh"{% if use_proxy %},
   "containerEnv": {
     "HTTP_PROXY": "http://host.docker.internal:3128",
     "HTTPS_PROXY": "http://host.docker.internal:3128",
     "NO_PROXY": "localhost,127.0.0.1,::1,host.docker.internal,.local,.internal"
-  }
+  }{% endif %}
 }

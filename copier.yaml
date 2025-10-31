@@ -37,8 +37,20 @@ _message_after_copy: |
 project_name:
   type: str
   help: What is your project name?
-  default: "python-template"
+  default: "python_template"
   placeholder: "my-awesome-project"
+
+user_name:
+  type: str
+  help: What is your name?
+  placeholder: "Your Name"
+  default: "User Name"
+
+user_email:
+  type: str
+  help: What is your email address?
+  placeholder: "you@example.com"
+  default: "you@example.com"
 
 # Auto-generated from project_name - never asked to user
 package_name:
@@ -60,6 +72,17 @@ use_github_actions:
   type: bool
   help: Include GitHub Actions CI configuration?
   default: yes
+
+github_username:
+  type: str
+  help: GitHub username (leave empty to skip GitHub integration in Makefile)
+  placeholder: "your-github-username"
+  default: ""
+
+use_proxy:
+  type: bool
+  help: Add proxy settings to Devcontainer.
+  default: no
 
 skip_git_init:
   type: bool

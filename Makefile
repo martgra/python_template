@@ -5,7 +5,7 @@ test:
 	@set -euo pipefail; \
 	tmpdir=$$(mktemp -d); \
 	echo "🔧 Generating template into: $$tmpdir"; \
-	uvx copier copy --vcs-ref=HEAD . "$$tmpdir" --defaults --force --trust; \
+	uvx copier copy --vcs-ref=HEAD . "$$tmpdir" --defaults --force --trust --data use_proxy=true --data github_username=martgra; \
 	cd "$$tmpdir"; \
 	echo "🌀 Initializing git repo..."; \
 	git add -A >/dev/null; \
@@ -19,7 +19,7 @@ test:
 build:
 	@echo "🔧 Generating template into: build_output/"
 	@rm -rf build_output
-	@uvx copier copy --vcs-ref=HEAD . build_output --defaults --force --trust --data skip_git_init=true
+	@uvx copier copy --vcs-ref=HEAD . build_output --defaults --force --trust --data skip_git_init=true --data use_proxy=false --data github_username=martgra
 	@echo "🚀 Running pre-commit hooks on build output..."
 	@cd build_output && uvx prek install && uvx prek run --files $$(find . -type f -not -path '*/\.git/*')
 	@echo "✅ Template generated and validated successfully!"
