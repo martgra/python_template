@@ -1,7 +1,7 @@
 # Makefile for uv with smart install + explicit updates
 SHELL := /bin/bash
 .DEFAULT_GOAL := install
-.PHONY: install update-deps test lint format clean run help check all secrets check-tools
+.PHONY: install update-deps test lint format clean run help check all secrets check-tools github-create github-push
 
 # Help target
 help:
@@ -15,6 +15,8 @@ help:
 	@echo "  clean        - Remove cache and temporary files"
 	@echo "  secrets      - Scan for secrets using detect-secrets"
 	@echo "  check-tools  - Check if required tools are installed"
+	@echo "  github-create - Create GitHub repository (requires gh CLI)"
+	@echo "  github-push   - Push to GitHub (run after github-create)"
 
 
 install: uv.lock
@@ -73,6 +75,12 @@ check-tools:
 	else \
 		echo "❌ Not installed - https://docs.docker.com/get-docker/"; \
 	fi
+	@printf "%-20s" "GitHub CLI:"; \
+	if command -v gh &> /dev/null; then \
+		echo "✅ $(shell gh --version | head -n1)"; \
+	else \
+		echo "❌ Not installed - https://cli.github.com/"; \
+	fi
 	@printf "%-20s" "prek:"; \
 	if command -v prek &> /dev/null; then \
 		echo "✅ $(shell prek --version)"; \
@@ -81,3 +89,32 @@ check-tools:
 	fi
 	@echo ""
 	@echo "💡 Install missing tools using the links above"
+
+github-create:
+	@echo "🔗 Creating GitHub repository..."
+	@if ! command -v gh &> /dev/null; then \
+		echo "❌ GitHub CLI (gh) not found. Install it from: https://cli.github.com/"; \
+		echo "   Or run: make check-tools"; \
+		exit 1; \
+	fi
+	@if [ ! -d .git ]; then \
+		echo "📁 Initializing git repository..."; \
+		git init; \
+		git add .; \
+		git commit -m "Initial commit from python_template"; \
+	fi
+	@echo "🚀 Creating GitHub repository martgra/python-template..."
+	@gh repo create martgra/python-template --public --source=. --remote=origin
+	@echo "✅ Repository created at: https://github.com/martgra/python-template"
+	@echo ""
+	@echo "Next: Run 'make github-push' to push your code"
+
+github-push:
+	@echo "📤 Pushing to GitHub..."
+	@if ! git remote get-url origin &> /dev/null; then \
+		echo "❌ No remote 'origin' found. Run 'make github-create' first"; \
+		exit 1; \
+	fi
+	@git push -u origin main || git push -u origin master
+	@echo "✅ Code pushed to GitHub"
+	@echo "🔗 View at: https://github.com/martgra/python-template"
