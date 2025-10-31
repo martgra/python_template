@@ -2,7 +2,7 @@
 name = "python-template"
 version = "0.1.0"
 description = ""
-authors = [{ name = "Martin Gran", email = "martgra@gmail.com" }]
+authors = [{ name = "User Name", email = "you@example.com" }]
 requires-python = ">=3.11"
 readme = "README.md"
 dependencies = []

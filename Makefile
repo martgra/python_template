@@ -1,7 +1,7 @@
 # Makefile for uv with smart install + explicit updates
 SHELL := /bin/bash
 .DEFAULT_GOAL := install
-.PHONY: install update-deps test lint format clean run help check all secrets
+.PHONY: install update-deps test lint format clean run help check all secrets check-tools
 
 # Help target
 help:
@@ -14,6 +14,8 @@ help:
 	@echo "  run          - Run the main application"
 	@echo "  clean        - Remove cache and temporary files"
 	@echo "  secrets      - Scan for secrets using detect-secrets"
+	@echo "  check-tools  - Check if required tools are installed"
+
 
 install: uv.lock
 	uv sync --frozen
@@ -49,3 +51,33 @@ clean:
 	find . -type d -name ".ruff_cache" -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
 	rm -rf .coverage htmlcov/ dist/ build/
+
+check-tools:
+	@echo "🔍 Checking required tools..."
+	@echo ""
+	@printf "%-20s" "uv:"; \
+	if command -v uv &> /dev/null; then \
+		echo "✅ $(shell uv --version)"; \
+	else \
+		echo "❌ Not installed - https://docs.astral.sh/uv/getting-started/installation/"; \
+	fi
+	@printf "%-20s" "git:"; \
+	if command -v git &> /dev/null; then \
+		echo "✅ $(shell git --version)"; \
+	else \
+		echo "❌ Not installed"; \
+	fi
+	@printf "%-20s" "docker:"; \
+	if command -v docker &> /dev/null; then \
+		echo "✅ $(shell docker --version)"; \
+	else \
+		echo "❌ Not installed - https://docs.docker.com/get-docker/"; \
+	fi
+	@printf "%-20s" "prek:"; \
+	if command -v prek &> /dev/null; then \
+		echo "✅ $(shell prek --version)"; \
+	else \
+		echo "⚠️  Not installed - Run: uvx prek install"; \
+	fi
+	@echo ""
+	@echo "💡 Install missing tools using the links above"
