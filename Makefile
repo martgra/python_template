@@ -103,9 +103,9 @@ github-create:
 		git add .; \
 		git commit -m "Initial commit from python_template"; \
 	fi
-	@echo "🚀 Creating GitHub repository martgra/python-template..."
-	@gh repo create martgra/python-template --public --source=. --remote=origin
-	@echo "✅ Repository created at: https://github.com/martgra/python-template"
+	@echo "🚀 Creating GitHub repository martgra/python_template..."
+	@gh repo create martgra/python_template --public --source=. --remote=origin
+	@echo "✅ Repository created at: https://github.com/martgra/python_template"
 	@echo ""
 	@echo "Next: Run 'make github-push' to push your code"
 
@@ -117,4 +117,4 @@ github-push:
 	fi
 	@git push -u origin main || git push -u origin master
 	@echo "✅ Code pushed to GitHub"
-	@echo "🔗 View at: https://github.com/martgra/python-template"
+	@echo "🔗 View at: https://github.com/martgra/python_template"
