@@ -1,6 +1,5 @@
-{
-  // Dev Container definition for {{ package_name }}
-  "name": "{{ package_name }}",
+{%- set devcontainer_config = {
+  "name": package_name,
   "dockerComposeFile": ["docker-compose.yaml"],
   "service": "app",
   "workspaceFolder": "/workspace",
@@ -33,10 +32,15 @@
     "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
   },
   "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
-  "postStartCommand": "bash .devcontainer/postStartCommand.sh"{% if use_proxy %},
+  "postStartCommand": "bash .devcontainer/postStartCommand.sh"
+} -%}
+{%- if use_proxy -%}
+{%- set _ = devcontainer_config.update({
   "containerEnv": {
     "HTTP_PROXY": "http://host.docker.internal:3128",
     "HTTPS_PROXY": "http://host.docker.internal:3128",
     "NO_PROXY": "localhost,127.0.0.1,::1,host.docker.internal,.local,.internal"
-  }{% endif %}
-}
+  }
+}) -%}
+{%- endif -%}
+{{ devcontainer_config | to_nice_json(indent=2, sort_keys=False) }}

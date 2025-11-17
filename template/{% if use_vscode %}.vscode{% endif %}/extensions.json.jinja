@@ -1,4 +1,4 @@
-{
+{%- set extensions = {
   "recommendations": [
     "ms-python.python",
     "charliermarsh.ruff",
@@ -9,4 +9,5 @@
     "esbenp.prettier-vscode",
     "ms-vscode-remote.remote-containers"
   ]
-}
+} -%}
+{{ extensions | to_nice_json(indent=2, sort_keys=False) }}

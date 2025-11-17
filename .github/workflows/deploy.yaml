@@ -61,7 +61,7 @@ jobs:
       - name: Clone repository for main branch
         run: |
           cd ..
-          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main-repo
+          git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git main-repo
           cd main-repo
           # Try to checkout main, or create orphan if it doesn't exist
           git checkout main 2>/dev/null || git checkout --orphan main
@@ -104,7 +104,7 @@ jobs:
         if: steps.check_changes.outputs.has_changes == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
           path: ../main-repo
           branch: template-build
           base: main

@@ -91,13 +91,10 @@ check-tools:
 	@echo "💡 Install missing tools using the links above"
 {%- if github_username %}
 
-github-create:
-	@echo "🔗 Creating GitHub repository..."
-	@if ! command -v gh &> /dev/null; then \
-		echo "❌ GitHub CLI (gh) not found. Install it from: https://cli.github.com/"; \
-		echo "   Or run: make check-tools"; \
-		exit 1; \
-	fi
+.check-gh:
+	@command -v gh &> /dev/null || (echo "❌ GitHub CLI (gh) not found. Install it from: https://cli.github.com/" && exit 1)
+
+github-create: .check-gh
 	@if [ ! -d .git ]; then \
 		echo "📁 Initializing git repository..."; \
 		git init; \
@@ -110,8 +107,7 @@ github-create:
 	@echo ""
 	@echo "Next: Run 'make github-push' to push your code"
 
-github-push:
-	@echo "📤 Pushing to GitHub..."
+github-push: .check-gh
 	@if ! git remote get-url origin &> /dev/null; then \
 		echo "❌ No remote 'origin' found. Run 'make github-create' first"; \
 		exit 1; \

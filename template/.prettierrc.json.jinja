@@ -1,4 +1,4 @@
-{
+{%- set prettier_config = {
   "printWidth": 120,
   "tabWidth": 2,
   "useTabs": false,
@@ -15,4 +15,5 @@
   "vueIndentScriptAndStyle": false,
   "endOfLine": "lf",
   "embeddedLanguageFormatting": "auto"
-}
+} -%}
+{{ prettier_config | to_nice_json(indent=2, sort_keys=False) }}

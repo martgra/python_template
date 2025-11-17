@@ -1,25 +1,29 @@
-version: "3.8"
-services:
-  app:
-    user: vscode
-    build:
-      # Use repository root as build context so we can pre-warm dependencies (pyproject/uv.lock)
-      context: ..
-      dockerfile: .devcontainer/Dockerfile
-      args:
-        VARIANT: 3.13-bookworm
-    volumes:
-      - ..:/workspace:cached # Shared workspace between host and devcontainer
-      - {{ package_name }}_extensions:/home/vscode/.vscode-server/extensions # Storing extensions
-      - {{ package_name }}_commandhistory:/home/vscode/commandhistory # Persistant command line history
-      - {{ package_name }}_cache:/home/vscode/.cache # Caching poetry/pip wheels
-      - /workspace/.venv
-
-    # Overrides default command so things don't shut down after the process ends.
-    command: sleep infinity
-
-# Volumes that are not shared between Host and Devcontainer must be listed here.
-volumes:
-  {{ package_name }}_extensions:
-  {{ package_name }}_commandhistory:
-  {{ package_name }}_cache:
+{%- set docker_compose = {
+  "version": "3.8",
+  "services": {
+    "app": {
+      "user": "vscode",
+      "build": {
+        "context": "..",
+        "dockerfile": ".devcontainer/Dockerfile",
+        "args": {
+          "VARIANT": "3.13-bookworm"
+        }
+      },
+      "volumes": [
+        "../:/workspace:cached",
+        package_name ~ "_extensions:/home/vscode/.vscode-server/extensions",
+        package_name ~ "_commandhistory:/home/vscode/commandhistory",
+        package_name ~ "_cache:/home/vscode/.cache",
+        "/workspace/.venv"
+      ],
+      "command": "sleep infinity"
+    }
+  },
+  "volumes": {
+    (package_name ~ "_extensions"): None,
+    (package_name ~ "_commandhistory"): None,
+    (package_name ~ "_cache"): None
+  }
+} -%}
+{{ docker_compose | to_nice_yaml(indent=2) }}

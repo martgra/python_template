@@ -1,0 +1,13 @@
+{%- set launch = {
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Module",
+      "type": "debugpy",
+      "request": "launch",
+      "module": package_name,
+      "justMyCode": false
+    }
+  ]
+} -%}
+{{ launch | to_nice_json(indent=2, sort_keys=False) }}

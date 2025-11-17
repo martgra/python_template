@@ -1,5 +1,5 @@
 minimum_pre_commit_version: "3.5.0"
-default_stages: [commit]
+default_stages: [commit, manual]
 
 ############################################################
 # Global Exclusions
@@ -70,7 +70,7 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
-        stages: [pre-push]
+        stages: [pre-push, manual]
         # Optional faster feedback: args: ["-q", "--maxfail=1"]
       - id: pylint
         name: Pylint (design checks)
@@ -78,19 +78,19 @@ repos:
         language: system
         types: [python]
         args: ["--rcfile=pyproject.toml"]
-        stages: [pre-push]
+        stages: [pre-push, manual]
       - id: deptry
         name: Deptry (dependency hygiene)
         entry: uv run deptry {{ package_name }}
         language: system
         pass_filenames: false
-        stages: [pre-push]
+        stages: [pre-push, manual]
       - id: vulture
         name: Vulture (dead code)
         entry: uv run vulture {{ package_name }}
         language: system
         pass_filenames: false
-        stages: [pre-push]
+        stages: [pre-push, manual]
 
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.5.0
@@ -99,12 +99,12 @@ repos:
         name: Detect Secrets (baseline)
         args: ["--baseline", ".secrets.baseline"]
         exclude: uv.lock
-        stages: [pre-push]
+        stages: [pre-push, manual]
 
   - repo: https://github.com/astral-sh/uv-pre-commit
     rev: 0.8.22
     hooks:
       - id: uv-lock
         name: Validate pyproject / lock
-        stages: [pre-push]
+        stages: [pre-push, manual]
         pass_filenames: false

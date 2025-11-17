@@ -15,6 +15,7 @@ _exclude:
   - "*.pyc"
   - "__pycache__"
   - ".git"
+  - "uv.lock"
 
 # Welcome message before copying
 _message_before_copy: |

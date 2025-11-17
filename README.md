@@ -3,7 +3,7 @@
 ![CI](https://github.com/martgra/python_template/actions/workflows/ci.yaml/badge.svg?branch=main)
 [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
 
-A [Copier](https://copier.readthedocs.io/) template for modern Python projects using [uv](https://docs.astral.sh/uv/), [Ruff](https://docs.astral.sh/ruff/), [pytest](https://docs.pytest.org/), and optional VSCode devcontainer support.
+A [Copier](https://copier.readthedocs.io/en/stable/) template for modern Python projects using [uv](https://docs.astral.sh/uv/), [Ruff](https://docs.astral.sh/ruff/), [pytest](https://docs.pytest.org/en/stable/), and optional VSCode devcontainer support.
 
 ## Features
 
