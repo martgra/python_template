@@ -1,38 +1,41 @@
 {
-  // Editor settings for Python
   "[python]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
       "source.organizeImports": "explicit"
     },
-    "editor.rulers": [100],
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+      100
+    ],
     "files.trimTrailingWhitespace": true
   },
-
-  // Editor settings for YAML
   "[yaml]": {
-    "editor.insertSpaces": true,
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2,
     "editor.autoIndent": "keep",
-    "gitlens.codeLens.scopes": ["document"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
     "editor.quickSuggestions": {
-      "other": true,
       "comments": false,
+      "other": true,
       "strings": true
-    }
+    },
+    "editor.tabSize": 2,
+    "gitlens.codeLens.scopes": [
+      "document"
+    ]
   },
-  "python.testing.pytestEnabled": true,
-  "python.testing.autoTestDiscoverOnSaveEnabled": true,
-  "python.testing.pytestArgs": ["tests"],
-  "ruff.enable": true,
-  "python.analysis.typeCheckingMode": "basic",
-  "python.analysis.autoImportCompletions": true,
-  "python.testing.unittestEnabled": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.testing.autoTestDiscoverOnSaveEnabled": true,
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "ruff.enable": true
 }
