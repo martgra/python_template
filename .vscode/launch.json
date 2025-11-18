@@ -1,12 +1,12 @@
 {
+  "version": "0.2.0",
   "configurations": [
     {
-      "justMyCode": false,
-      "module": "python_template",
       "name": "Python: Module",
+      "type": "debugpy",
       "request": "launch",
-      "type": "debugpy"
+      "module": "python_template",
+      "justMyCode": false
     }
-  ],
-  "version": "0.2.0"
+  ]
 }
