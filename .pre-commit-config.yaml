@@ -1,5 +1,5 @@
 minimum_pre_commit_version: "3.5.0"
-default_stages: [commit, manual]
+default_stages: [pre-commit, pre-push, manual]
 
 ############################################################
 # Global Exclusions
