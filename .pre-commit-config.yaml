@@ -1,5 +1,7 @@
 minimum_pre_commit_version: "3.5.0"
-default_stages: [pre-commit, pre-push, manual]
+default_stages: [pre-commit, manual]
+default_install_hook_types: [pre-commit, pre-push]
+
 
 ############################################################
 # Global Exclusions
