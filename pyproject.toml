@@ -3,7 +3,7 @@ name = "python_template"
 version = "0.1.0"
 description = ""
 authors = [{ name = "User Name", email = "you@example.com" }]
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 readme = "README.md"
 dependencies = []
 
