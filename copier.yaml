@@ -80,15 +80,26 @@ github_username:
   placeholder: "your-github-username"
   default: ""
 
+use_agents:
+  type: bool
+  help: Include boilerplate AGENTS.md for coding agents?
+  default: yes
+
 use_proxy:
   type: bool
   help: Add proxy settings to Devcontainer.
+  when: "{{ use_devcontainer }}"
   default: no
 
 skip_git_init:
   type: bool
   when: false # Hidden parameter for testing
   default: no
+
+python_version:
+  type: str
+  default: "3.13"
+  when: false
 
 _tasks:
   - command: "git init"
