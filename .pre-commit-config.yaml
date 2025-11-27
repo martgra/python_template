@@ -110,3 +110,9 @@ repos:
         name: Validate pyproject / lock
         stages: [pre-push, manual]
         pass_filenames: false
+
+  - repo: https://github.com/pysentry/pysentry-pre-commit
+    rev: v0.3.12
+    hooks:
+      - id: pysentry # default pysentry settings
+        stages: [pre-push, manual]
