@@ -1,14 +1,14 @@
 # python_template
 
 ![CI](https://github.com/martgra/python_template/actions/workflows/ci.yaml/badge.svg?branch=main)
-![Python](https://img.shields.io/badge/python-3.11%2B-blue?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/python-3.13%2B-blue?logo=python&logoColor=white)
 [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
 
 A solid project template for Python.
 
 ## ✨ Features
 
-- **Modern Python** – Requires Python ≥ 3.11.
+- **Modern Python** – Requires Python ≥ 3.13.
 - **Dependency management with uv** – Fast dependency installation and lock file management.
 - **Quality tools**
   - Ruff formats and lints code
@@ -43,7 +43,7 @@ Makefile                    # Common tasks (test, lint, format, etc.)
 .github/workflows/       # CI/CD workflows
 ```
 
-Python ≥ 3.11 is required locally. The dev container uses Python 3.13.
+Python ≥ 3.13 is required locally. The dev container uses Python 3.13.
 
 ## Git Hooks (Prek)
 
