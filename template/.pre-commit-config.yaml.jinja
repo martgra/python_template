@@ -89,7 +89,7 @@ repos:
         stages: [pre-push, manual]
       - id: vulture
         name: Vulture (dead code)
-        entry: uv run vulture {{ package_name }}
+        entry: uv run vulture
         language: system
         pass_filenames: false
         stages: [pre-push, manual]
