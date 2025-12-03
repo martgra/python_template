@@ -140,6 +140,7 @@ raise Exception("not found")
 - Use `assert` directly, no `self.assertEqual()`
 - Put shared fixtures in `tests/conftest.py`
 - Never create throwaway test scripts outside `tests/`
+- Use naming convention `<test name>_test.py` where the test is _test suffix to the name of the test.
 
 ### Test organization by speed
 - `tests/unit/` - Fast (<100ms), no external dependencies
