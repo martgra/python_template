@@ -12,18 +12,18 @@
       },
       "volumes": [
         "../:/workspace:cached",
-        package_name ~ "_extensions:/home/vscode/.vscode-server/extensions",
-        package_name ~ "_commandhistory:/home/vscode/commandhistory",
-        package_name ~ "_cache:/home/vscode/.cache",
+        project_name_snake_case ~ "_extensions:/home/vscode/.vscode-server/extensions",
+        project_name_snake_case ~ "_commandhistory:/home/vscode/commandhistory",
+        project_name_snake_case ~ "_cache:/home/vscode/.cache",
         "/workspace/.venv"
       ],
       "command": "sleep infinity"
     }
   },
   "volumes": {
-    (package_name ~ "_extensions"): None,
-    (package_name ~ "_commandhistory"): None,
-    (package_name ~ "_cache"): None
+    (project_name_snake_case ~ "_extensions"): None,
+    (project_name_snake_case ~ "_commandhistory"): None,
+    (project_name_snake_case ~ "_cache"): None
   }
 } -%}
 {{ docker_compose | to_nice_yaml(indent=2) }}
