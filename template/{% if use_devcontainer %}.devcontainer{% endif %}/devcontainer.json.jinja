@@ -1,3 +1,5 @@
+{%- from 'includes/slugify.jinja' import slugify -%}
+{%- set project_name_snake_case = slugify(project_name) -%}
 {%- set devcontainer_config = {
   "name": project_name_snake_case,
   "dockerComposeFile": ["docker-compose.yaml"],

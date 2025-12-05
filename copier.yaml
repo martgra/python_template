@@ -41,16 +41,11 @@ project_name:
   default: "python_template"
   placeholder: "my-awesome-project"
 
-# Auto-generated from project_name - never asked to user
-project_name_snake_case:
-  type: str
-  when: false # This makes it hidden - user is never prompted
-  default: "{% from 'includes/slugify.jinja' import slugify %}{{ slugify(project_name) }}"
-
-# Auto-generated from project_name - never asked to user
 package_name:
   type: str
-  default: "{{ project_name_snake_case }}"
+  help: Python package name (snake_case)
+  default: "{% from 'includes/slugify.jinja' import slugify %}{{ slugify(project_name) }}"
+  validator: "{% if not package_name.replace('_', '').replace('-', '').isalnum() or package_name[0].isdigit() or package_name != package_name.lower() or ' ' in package_name %}Package name must be lowercase alphanumeric with underscores only, and cannot start with a digit{% endif %}"
 
 user_name:
   type: str
