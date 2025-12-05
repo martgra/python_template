@@ -41,6 +41,11 @@ project_name:
   default: "python_template"
   placeholder: "my-awesome-project"
 
+# Auto-generated from project_name - never asked to user
+package_name:
+  type: str
+  default: "{% from 'includes/slugify.jinja' import slugify %}{{ slugify(project_name) }}"
+
 user_name:
   type: str
   help: What is your name?
@@ -52,12 +57,6 @@ user_email:
   help: What is your email address?
   placeholder: "you@example.com"
   default: "you@example.com"
-
-# Auto-generated from project_name - never asked to user
-package_name:
-  type: str
-  when: false # This makes it hidden - user is never prompted
-  default: "{% from 'includes/slugify.jinja' import slugify %}{{ slugify(project_name) }}"
 
 use_devcontainer:
   type: bool
