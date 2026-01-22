@@ -18,7 +18,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
     "editor.autoIndent": "keep",
-    "gitlens.codeLens.scopes": ["document"],
     "editor.quickSuggestions": {
       "other": true,
       "comments": false,
