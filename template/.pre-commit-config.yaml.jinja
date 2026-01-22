@@ -60,6 +60,17 @@ repos:
         name: Ruff Formatter
         args: ["--config=pyproject.toml"]
 
+  - repo: local
+    hooks:
+      - id: ty
+        name: ty check
+        entry: uv run ty check
+        language: system
+        types: [python]
+        files: ^{{ package_name }}/
+        pass_filenames: false
+        args: ['{{ package_name }}/', '--ignore', 'unresolved-import']
+
   ############################################################
   # PUSH-TIME (SLOWER / ANALYSIS) HOOKS
   # These run less frequently to keep commit loop fast.
