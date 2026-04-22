@@ -85,12 +85,6 @@ use_agents:
   help: Include boilerplate AGENTS.md for coding agents?
   default: yes
 
-use_proxy:
-  type: bool
-  help: Add proxy settings to Devcontainer.
-  when: "{{ use_devcontainer }}"
-  default: no
-
 skip_git_init:
   type: bool
   when: false # Hidden parameter for testing
@@ -98,7 +92,7 @@ skip_git_init:
 
 python_version:
   type: str
-  default: "3.13"
+  default: "3.14"
   when: false
 
 _tasks:
