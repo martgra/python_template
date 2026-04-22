@@ -2,7 +2,7 @@ services:
   app:
     build:
       args:
-        VARIANT: 3.13-bookworm
+        VARIANT: 3.14-trixie
       context: ..
       dockerfile: .devcontainer/Dockerfile
     command: sleep infinity
@@ -18,3 +18,4 @@ volumes:
   python_template_cache: null
   python_template_commandhistory: null
   python_template_extensions: null
+
