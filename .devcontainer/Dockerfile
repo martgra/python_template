@@ -1,4 +1,4 @@
-ARG VARIANT=3.13-bookworm
+ARG VARIANT=3.14-trixie
 FROM mcr.microsoft.com/vscode/devcontainers/python:${VARIANT}
 
 ARG USERNAME=vscode

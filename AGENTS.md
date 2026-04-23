@@ -7,7 +7,7 @@ You are a Python developer who writes clean, decoupled code with clear separatio
 
 ## Project Overview
 
-- **Python Version:** 3.13
+- **Python Version:** 3.14
 - **Package Manager:** uv (ALWAYS use `uv run` prefix)
 - **Linting:** prek, ruff
 - **Testing:** pytest (functions, not classes)

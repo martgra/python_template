@@ -1,20 +1,21 @@
 # python_template
 
 ![CI](https://github.com/martgra/python_template/actions/workflows/ci.yaml/badge.svg?branch=main)
-![Python](https://img.shields.io/badge/python-3.13%2B-blue?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/python-3.14%2B-blue?logo=python&logoColor=white)
 [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
 
 A solid project template for Python.
 
 ## ✨ Features
 
-- **Modern Python** – Requires Python ≥ 3.13.
+- **Modern Python** – Requires Python ≥ 3.14.
 - **Dependency management with uv** – Fast dependency installation and lock file management.
 - **Quality tools**
   - Ruff formats and lints code
   - Pylint performs deeper static analysis
   - Deptry detects unused, missing and transitive dependencies
   - Vulture finds dead code.
+  - Ty for static type-checking
 - **Secret scanning with detect-secrets** - Prevent secrets getting commited and pushed.
 - **Git hooks with Prek** – Automated quality checks on every commit and push.
 - **Automated CI/CD** – GitHub Actions run all Prek hooks on pull requests and pushes to ensure code quality.
@@ -43,7 +44,7 @@ Makefile                    # Common tasks (test, lint, format, etc.)
 .github/workflows/       # CI/CD workflows
 ```
 
-Python ≥ 3.13 is required locally. The dev container uses Python 3.13.
+Python ≥ 3.14 is required locally. The dev container uses Python 3.14.
 
 ## Git Hooks (Prek)
 
