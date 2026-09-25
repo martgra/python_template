@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uvx pylint *)",
+      "Skill(claude-api)",
+      "WebFetch(domain:docs.astral.sh)",
+      "Bash(gh issue *)"
+    ]
+  }
+}

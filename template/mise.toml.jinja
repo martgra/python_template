@@ -1,0 +1,8 @@
+[tools]
+uv = "latest"
+{%- if github_username %}
+github-cli = "latest"
+{%- endif %}
+{%- for tool in ai_coding_tools %}
+{{ tool }} = "latest"
+{%- endfor %}

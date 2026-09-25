@@ -86,6 +86,21 @@ use_agents:
   help: Include boilerplate AGENTS.md for coding agents?
   default: yes
 
+use_ty:
+  type: bool
+  help: Use ty as type checker (enforced on pre-push)?
+  default: yes
+
+ai_coding_tools:
+  type: str
+  multiselect: true
+  help: Which AI coding CLI tools do you want to install via mise?
+  choices:
+    - claude
+    - copilot
+    - codex
+  default: []
+
 skip_git_init:
   type: bool
   when: false # Hidden parameter for testing
