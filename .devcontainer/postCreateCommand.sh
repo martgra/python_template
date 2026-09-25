@@ -4,6 +4,9 @@ set -euo pipefail
 
 sudo chown -R vscode:vscode /workspace/.venv
 
+echo "Running mise install..."
+mise install
+
 # Install/update PreK tool (idempotent)
 echo "Ensuring prek installed (pinned via uv tool cache)..."
 uv tool install prek >/dev/null 2>&1 || true
