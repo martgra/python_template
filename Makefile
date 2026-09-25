@@ -12,6 +12,8 @@ test:
 	uvx prek install >/dev/null; \
 	echo "🚀 Running pre-commit hooks..."; \
 	uvx prek install && uvx prek run --hook-stage manual --files $$(find . -type f -not -path '*/\.git/*'); \
+	echo "🔒 Running pre-push hooks..."; \
+	uvx prek run --hook-stage pre-push; \
 	cd - >/dev/null; \
 	rm -rf "$$tmpdir"; \
 	echo "✅ All checks passed and temp folder cleaned up."

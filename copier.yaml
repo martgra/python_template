@@ -8,6 +8,7 @@ _skip_if_exists:
   - ".env"
   - "{{ package_name }}/"
   - ".secrets.baseline"
+  - "AGENTS.md"
 
 # Exclude helper files from being copied
 _exclude:
