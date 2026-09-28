@@ -5,6 +5,7 @@
   "dockerComposeFile": ["docker-compose.yaml"],
   "service": "app",
   "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "installZsh": true
@@ -30,10 +31,12 @@
   },
   "forwardPorts": [8888],
   "remoteUser": "vscode",
+  "updateRemoteUserUID": True,
   "remoteEnv": {
     "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
   },
   "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
-  "postStartCommand": "bash .devcontainer/postStartCommand.sh"
+  "postStartCommand": "bash .devcontainer/postStartCommand.sh",
+  "waitFor": "postCreateCommand"
 } -%}
 {{ devcontainer_config | to_nice_json(indent=2, sort_keys=False) }}

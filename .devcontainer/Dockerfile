@@ -2,7 +2,6 @@ ARG VARIANT=3.14-trixie
 FROM mcr.microsoft.com/vscode/devcontainers/python:${VARIANT}
 
 ARG USERNAME=vscode
-ARG UV_VERSION=v0.4.30
 
 # Install dependencies for lychee (link checker)
 USER root

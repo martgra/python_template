@@ -1,0 +1,172 @@
+# Contributing to {{ project_name }}
+
+Thank you for considering contributing to {{ project_name }}! This document provides guidelines and instructions for contributing.
+
+## Development Setup
+
+### Prerequisites
+
+- [uv](https://docs.astral.sh/uv/) 0.4 or higher
+- Git{% if use_devcontainer %}
+- Docker (for devcontainer){% endif %}
+
+### Getting Started
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/{{ github_username or 'your-username' }}/{{ project_name }}.git
+   cd {{ project_name }}
+   ```
+
+1. **Install dependencies**
+
+   ```bash
+   uv sync
+   ```
+{% if use_devcontainer %}
+1. **Optional: Use devcontainer**
+
+   Open the project in VS Code and click "Reopen in Container" when prompted.
+{% endif %}
+1. **Create a new branch**
+
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+## Development Workflow
+
+### Running the Project
+
+```bash
+uv run {{ package_name }}    # Run the application
+uv run pytest                # Run all tests
+```
+
+### Code Quality
+
+```bash
+uv run ruff check --fix .    # Lint and auto-fix
+uv run ruff format .         # Format code
+uv run prek run --all-files  # Run all pre-commit checks
+```
+
+## Code Style Guidelines
+
+### Python
+
+- Use Python {{ python_version }}
+- All function signatures must have type hints
+- Google-style docstrings for public APIs
+- Maximum line length: 99 characters
+- Prefer `snake_case` for functions and variables, `PascalCase` for classes
+
+### File Organization
+
+```
+{{ package_name }}/    # Application source code
+tests/
+  ├── unit/            # Fast, isolated unit tests
+  ├── integration/     # Tests with external dependencies
+  └── e2e/             # End-to-end tests
+```
+
+### Git Hooks
+
+Pre-commit hooks automatically run:
+
+- Ruff (lint and format)
+- Secret detection
+
+**Important:** If the hook makes changes, they are **not** automatically staged. Review the changes, stage them, and commit again.
+
+## Pull Request Process
+
+1. **Update documentation** - Update README.md if you change functionality
+2. **Run all checks** - Ensure linting, formatting, and tests pass
+3. **Write clear commit messages** - Follow [Conventional Commits](https://www.conventionalcommits.org/)
+
+   ```
+   feat: add new feature
+   fix: resolve bug in X
+   docs: update README
+   refactor: restructure Z
+   ```
+
+4. **Create Pull Request**
+   - Use a clear, descriptive title
+   - Reference any related issues
+   - Describe what changed and why
+
+5. **Address review feedback** - Respond to comments and make requested changes
+
+## Commit Message Format
+
+We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+**Types:**
+
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `style`: Code style changes (formatting, etc.)
+- `refactor`: Code refactoring
+- `test`: Test changes
+- `chore`: Maintenance tasks
+
+**Example:**
+
+```
+feat(auth): add JWT authentication
+
+Implemented JWT-based authentication with refresh tokens.
+
+Closes #123
+```
+
+## Reporting Issues
+
+### Bug Reports
+
+Include:
+
+- Clear description of the issue
+- Steps to reproduce
+- Expected vs actual behavior
+- Environment details (OS, Python version, etc.)
+- Error messages and stack traces
+
+### Feature Requests
+
+Include:
+
+- Clear description of the feature
+- Use case and motivation
+- Proposed implementation (optional)
+
+## Code Review
+
+All submissions require review. We aim to:
+
+- Provide feedback within 2-3 business days
+- Be constructive and respectful
+- Focus on code quality, not personal preferences
+
+## Questions?
+
+- Open an issue for questions
+- Tag it with `question` label{% if user_email %}
+- Email {{ user_email }} for private inquiries{% endif %}
+
+## License
+
+By contributing, you agree that your contributions will be licensed under the MIT license.

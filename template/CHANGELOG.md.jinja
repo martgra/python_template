@@ -1,0 +1,37 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+
+- Initial project setup
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [1.0.0] - {{ now().strftime('%Y-%m-%d') }}
+
+### Added
+
+- Project scaffolding with Python {{ python_version }}
+- uv for dependency management and virtual environments
+- Ruff for linting and formatting
+- prek for pre-commit hooks with secret detection
+- pytest for testing{% if use_github_actions %}
+- GitHub Actions CI/CD workflows{% endif %}{% if use_devcontainer %}
+- VSCode devcontainer configuration{% endif %}
+
+[unreleased]: https://github.com/{{ user_name }}/{{ project_name }}/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/{{ user_name }}/{{ project_name }}/releases/tag/v1.0.0

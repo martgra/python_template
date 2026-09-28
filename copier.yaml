@@ -9,6 +9,8 @@ _skip_if_exists:
   - "{{ package_name }}/"
   - ".secrets.baseline"
   - "AGENTS.md"
+  - "CONTRIBUTING.md"
+  - "CHANGELOG.md"
 
 # Exclude helper files from being copied
 _exclude:
@@ -41,6 +43,16 @@ project_name:
   help: What is your project name?
   default: "python_template"
   placeholder: "my-awesome-project"
+  validator: >-
+    {% if not (project_name | regex_search('^[a-z][a-z0-9-_]*$')) %}
+    project_name must start with a letter and only contain lowercase letters, numbers, hyphens, or underscores
+    {% endif %}
+
+project_description:
+  type: str
+  help: Brief project description
+  default: "A Python project"
+  placeholder: "My awesome Python application"
 
 package_name:
   type: str
@@ -110,6 +122,9 @@ python_version:
   type: str
   default: "3.14"
   when: false
+
+_jinja_extensions:
+  - jinja2.ext.do
 
 _tasks:
   - command: "git init"
