@@ -1,2 +1,3 @@
 [tools]
+uv = "latest"
 claude = "latest"
