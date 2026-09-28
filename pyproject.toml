@@ -19,7 +19,7 @@ dev = [
     "vulture>=2.14",
 ]
 test = [
-    "pytest>=8.4.2",
+    "pytest>=9.1.1",
     "pytest-cov>=7.0.0",
 ]
 
