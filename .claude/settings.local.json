@@ -4,7 +4,12 @@
       "Bash(uvx pylint *)",
       "Skill(claude-api)",
       "WebFetch(domain:docs.astral.sh)",
-      "Bash(gh issue *)"
+      "Bash(gh issue *)",
+      "WebFetch(domain:mise.run)",
+      "WebFetch(domain:mise.jdx.dev)",
+      "WebSearch",
+      "WebFetch(domain:rezachegini.com)",
+      "Bash(git *)"
     ]
   }
 }

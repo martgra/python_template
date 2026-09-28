@@ -10,6 +10,10 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
     mkdir -p /home/${USERNAME}/.cache && \
     chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.cache
 
+RUN curl https://mise.run | sh && \
+    echo 'eval "$(~/.local/bin/mise activate zsh)"' >> /home/${USERNAME}/.zshrc && \
+    echo 'eval "$(~/.local/bin/mise activate bash)"' >> /home/${USERNAME}/.bashrc
+
 
 # Ensure VS Code extension & history directories exist with correct ownership
 RUN mkdir -p /home/$USERNAME/.vscode-server/extensions \
