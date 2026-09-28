@@ -5,12 +5,12 @@
   ],
   "service": "app",
   "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "installZsh": true
     },
-    "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/devcontainers-community/features/mise:1": {}
+    "ghcr.io/devcontainers/features/git:1": {}
   },
   "customizations": {
     "vscode": {
@@ -33,9 +33,11 @@
     8888
   ],
   "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
   "remoteEnv": {
-    "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
+    "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin:/home/vscode/.local/share/mise/shims"
   },
   "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
-  "postStartCommand": "bash .devcontainer/postStartCommand.sh"
+  "postStartCommand": "bash .devcontainer/postStartCommand.sh",
+  "waitFor": "postCreateCommand"
 }
